@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Получаем ссылки на элементы
     const balanceAmount = document.getElementById('balanceAmount');
     const caseGrid = document.getElementById('caseGrid');
     const caseModal = document.getElementById('caseModal');
-    const modalCloseButton = document.querySelector('.modal-close-button');
+    const modalCloseButtons = document.querySelectorAll('.modal-close-button');
     const modalCaseName = document.getElementById('modalCaseName');
     const modalCaseImage = document.getElementById('modalCaseImage');
     const modalCaseDescription = document.getElementById('modalCaseDescription');
@@ -10,11 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalOpenButton = document.getElementById('modalOpenButton');
     const modalCaseItems = document.getElementById('modalCaseItems');
     const modalResult = document.getElementById('modalResult');
+    const addBalanceBtn = document.getElementById('addBalanceBtn');
+    const purchaseModal = document.getElementById('purchaseModal');
+    const purchaseButtons = document.querySelectorAll('.purchase-button');
 
-    let currentBalance = 1000; // Начальный баланс укусов
-    balanceAmount.textContent = currentBalance; // Отображаем баланс
+    // --- Логика сохранения баланса ---
+    function getBalance() {
+        // Проверяем, есть ли баланс в памяти браузера
+        const savedBalance = localStorage.getItem('userBalance');
+        // Если есть, используем его, иначе устанавливаем начальное значение 1000
+        return savedBalance !== null ? parseInt(savedBalance) : 1000;
+    }
 
-    // Список всех доступных подарков/NFT
+    function saveBalance(balance) {
+        // Сохраняем текущий баланс в память браузера
+        localStorage.setItem('userBalance', balance);
+    }
+
+    let currentBalance = getBalance();
+    balanceAmount.textContent = currentBalance;
+
+    // --- Остальная логика ---
+
     const allGifts = {
         bear: { name: 'Мишка', value: 15, image: 'https://via.placeholder.com/60/FFC0CB?text=🐻' },
         giftBox: { name: 'Подарок', value: 25, image: 'https://via.placeholder.com/60/FFA500?text=🎁' },
@@ -22,24 +40,23 @@ document.addEventListener('DOMContentLoaded', () => {
         ring: { name: 'Кольцо', value: 100, image: 'https://via.placeholder.com/60/FFFF00?text=💍' }
     };
 
-    // Определение кейсов
     const cases = [
         {
             id: 1,
             name: 'Начинающий кейс',
             description: 'Шанс получить базовые подарки.',
-            image: 'https://via.placeholder.com/100/388e3c/ffffff?text=Кейс+1', // Зеленый
+            image: 'https://via.placeholder.com/100/388e3c/ffffff?text=Кейс+1',
             price: 25,
             items: [
-                { gift: allGifts.bear, chance: 70 }, // 70% шанс
-                { gift: allGifts.giftBox, chance: 30 } // 30% шанс
+                { gift: allGifts.bear, chance: 70 },
+                { gift: allGifts.giftBox, chance: 30 }
             ]
         },
         {
             id: 2,
             name: 'Обычный кейс',
             description: 'Более ценные подарки.',
-            image: 'https://via.placeholder.com/100/d32f2f/ffffff?text=Кейс+2', // Красный
+            image: 'https://via.placeholder.com/100/d32f2f/ffffff?text=Кейс+2',
             price: 75,
             items: [
                 { gift: allGifts.giftBox, chance: 60 },
@@ -50,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 3,
             name: 'Редкий кейс',
             description: 'Очень хорошие подарки.',
-            image: 'https://via.placeholder.com/100/fbc02d/ffffff?text=Кейс+3', // Желтый
+            image: 'https://via.placeholder.com/100/fbc02d/ffffff?text=Кейс+3',
             price: 150,
             items: [
                 { gift: allGifts.rocket, chance: 50 },
@@ -61,22 +78,21 @@ document.addEventListener('DOMContentLoaded', () => {
             id: 4,
             name: 'Легендарный кейс',
             description: 'Шанс на самый ценный подарок!',
-            image: 'https://via.placeholder.com/100/0288d1/ffffff?text=Кейс+4', // Голубой
+            image: 'https://via.placeholder.com/100/0288d1/ffffff?text=Кейс+4',
             price: 250,
             items: [
-                { gift: allGifts.ring, chance: 100 } // 100% шанс на кольцо
+                { gift: allGifts.ring, chance: 100 }
             ]
         }
     ];
 
-    // Функция для генерации боксов с кейсами
     function generateCaseBoxes() {
-        caseGrid.innerHTML = ''; // Очищаем сетку
+        caseGrid.innerHTML = '';
         cases.forEach(caseData => {
             const caseBox = document.createElement('div');
             caseBox.className = 'case-box';
             caseBox.dataset.caseId = caseData.id;
-            caseBox.style.backgroundColor = `var(--case-bg-color-${caseData.id})`; // Применяем цвет
+            caseBox.style.backgroundColor = `var(--case-bg-color-${caseData.id})`;
             caseBox.innerHTML = `
                 <img src="${caseData.image}" alt="${caseData.name}">
                 <h3>${caseData.name}</h3>
@@ -87,16 +103,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Открытие модального окна предпросмотра кейса
     function openCaseModal(caseData) {
         modalCaseName.textContent = caseData.name;
         modalCaseImage.src = caseData.image;
         modalCaseDescription.textContent = caseData.description;
         modalCasePrice.textContent = caseData.price;
-        modalOpenButton.dataset.caseId = caseData.id; // Привязываем ID кейса к кнопке
-        modalResult.innerHTML = ''; // Очищаем результат предыдущего открытия
+        modalOpenButton.dataset.caseId = caseData.id;
+        modalResult.innerHTML = '';
 
-        // Отображаем содержимое кейса
         modalCaseItems.innerHTML = '';
         caseData.items.forEach(item => {
             const itemElement = document.createElement('div');
@@ -109,20 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
             modalCaseItems.appendChild(itemElement);
         });
         
-        caseModal.style.display = 'flex'; // Показываем модальное окно
+        caseModal.style.display = 'flex';
     }
 
-    // Закрытие модального окна
-    modalCloseButton.addEventListener('click', () => {
-        caseModal.style.display = 'none';
-    });
-    window.addEventListener('click', (event) => {
-        if (event.target === caseModal) {
-            caseModal.style.display = 'none';
-        }
-    });
-
-    // Логика открытия кейса
     modalOpenButton.addEventListener('click', () => {
         const caseId = parseInt(modalOpenButton.dataset.caseId);
         const selectedCase = cases.find(c => c.id === caseId);
@@ -132,6 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentBalance >= selectedCase.price) {
             currentBalance -= selectedCase.price;
             balanceAmount.textContent = currentBalance;
+            saveBalance(currentBalance); // Сохраняем новый баланс
             modalResult.innerHTML = '<p>Открываем кейс...</p>';
 
             setTimeout(() => {
@@ -142,14 +146,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${wonGift.image}" alt="${wonGift.name}" style="width: 100%; max-width: 100px; border-radius: 10px;">
                     <p>Стоимость: ${wonGift.value} укусов</p>
                 `;
-                // Здесь можно добавить логику добавления в инвентарь
             }, 1500);
         } else {
             alert('Недостаточно укусов для открытия этого кейса!');
         }
     });
 
-    // Функция для случайного выбора подарка с учетом шансов
     function getRandomGift(items) {
         const totalChance = items.reduce((sum, item) => sum + item.chance, 0);
         let randomNum = Math.random() * totalChance;
@@ -160,9 +162,39 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             randomNum -= item.chance;
         }
-        return items[items.length - 1].gift; // Fallback, если что-то пошло не так
+        return items[items.length - 1].gift;
     }
 
-    // Инициализация - генерируем боксы при загрузке страницы
+    // --- Логика покупки за "звезды" ---
+    addBalanceBtn.addEventListener('click', () => {
+        // Открываем модальное окно для покупки
+        purchaseModal.style.display = 'flex';
+    });
+
+    purchaseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const amountToAdd = parseInt(button.getAttribute('data-amount'));
+            currentBalance += amountToAdd;
+            balanceAmount.textContent = currentBalance;
+            saveBalance(currentBalance); // Сохраняем новый баланс
+            purchaseModal.style.display = 'none';
+            alert(`Укусы успешно куплены! Ваш баланс: ${currentBalance}`);
+        });
+    });
+
+    // --- Логика закрытия модальных окон ---
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            caseModal.style.display = 'none';
+            purchaseModal.style.display = 'none';
+        });
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === caseModal || event.target === purchaseModal) {
+            event.target.style.display = 'none';
+        }
+    });
+
     generateCaseBoxes();
 });
