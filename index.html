@@ -8,14 +8,14 @@
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
-            background-color: #f0f0f0; /* Светлый фон */
+            background-color: #f0f0f0;
             color: #333;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
         .header {
-            background-color: #6a0dad; /* Фиолетовый цвет для шапки */
+            background-color: #6a0dad;
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -35,12 +35,12 @@
         }
         .balance span {
             margin-left: 8px;
-            color: #ffeb3b; /* Желтый для баланса */
+            color: #ffeb3b;
         }
         .nav-menu {
             display: flex;
             justify-content: space-around;
-            background-color: #8a2be2; /* Чуть светлее фиолетовый для меню */
+            background-color: #8a2be2;
             padding: 10px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
@@ -55,7 +55,7 @@
             border-radius: 5px;
         }
         .nav-menu button.active {
-            background-color: #6a0dad; /* Активная кнопка темнее */
+            background-color: #6a0dad;
         }
         .nav-menu button:hover:not(.active) {
             background-color: rgba(255,255,255,0.2);
@@ -63,10 +63,10 @@
         .content {
             flex-grow: 1;
             padding: 20px;
-            background-color: #f9f9f9; /* Почти белый для контента */
+            background-color: #f9f9f9;
         }
         .section {
-            display: none; /* Скрываем все секции по умолчанию */
+            display: none;
             background-color: white;
             padding: 20px;
             border-radius: 8px;
@@ -74,7 +74,7 @@
             margin-bottom: 20px;
         }
         .section.active {
-            display: block; /* Показываем активную секцию */
+            display: block;
         }
         .roulette-button {
             padding: 15px 30px;
@@ -82,7 +82,7 @@
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #4CAF50; /* Зеленая кнопка */
+            background-color: #4CAF50;
             color: white;
             transition: background-color 0.3s ease;
         }
@@ -107,57 +107,18 @@
     <div class="content">
         <div id="rouletteSection" class="section active">
             <h2>Рулетка</h2>
-            <p>Нажми кнопку, чтобы испытать удачу и выиграть NFT!</p>
-            <button class="roulette-button" onclick="alert('Крутим рулетку...')">Крутить</button>
-            <div id="result" style="margin-top: 20px;"></div>
+            <p>Нажми кнопку, чтобы испытать удачу и выиграть NFT! Стоимость - 100 укусов.</p>
+            <button id="spinButton" class="roulette-button">Крутить</button>
+            <div id="result" style="margin-top: 20px; text-align: center;"></div>
         </div>
 
         <div id="inventorySection" class="section">
             <h2>Инвентарь</h2>
             <p>Здесь будут храниться все твои выигранные NFT.</p>
-            <ul>
-                <li>NFT #1 (пример)</li>
-                <li>NFT #2 (пример)</li>
-            </ul>
+            <ul id="inventoryList"></ul>
         </div>
     </div>
 
-    <script>
-        // Получаем ссылки на элементы
-        const rouletteBtn = document.getElementById('rouletteBtn');
-        const inventoryBtn = document.getElementById('inventoryBtn');
-        const rouletteSection = document.getElementById('rouletteSection');
-        const inventorySection = document.getElementById('inventorySection');
-        const balanceAmount = document.getElementById('balanceAmount');
-
-        // Функция для переключения секций
-        function showSection(sectionToShow, buttonToActivate) {
-            // Скрываем все секции
-            document.querySelectorAll('.section').forEach(section => {
-                section.classList.remove('active');
-            });
-            // Деактивируем все кнопки меню
-            document.querySelectorAll('.nav-menu button').forEach(button => {
-                button.classList.remove('active');
-            });
-
-            // Показываем нужную секцию
-            sectionToShow.classList.add('active');
-            // Активируем нужную кнопку
-            buttonToActivate.classList.add('active');
-        }
-
-        // Обработчики событий для кнопок меню
-        rouletteBtn.addEventListener('click', () => {
-            showSection(rouletteSection, rouletteBtn);
-        });
-
-        inventoryBtn.addEventListener('click', () => {
-            showSection(inventorySection, inventoryBtn);
-        });
-
-        // Здесь можно было бы получить реальный баланс с сервера
-        // Например: balanceAmount.textContent = '2500'; 
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
