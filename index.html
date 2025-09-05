@@ -3,122 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя NFT Рулетка</title>
+    <title>NFT Кейсы</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-medium: #2a2a2a;
+            --bg-light: #3a3a3a;
+            --text-color: #f0f0f0;
+            --primary-color: #6a0dad; /* Фиолетовый */
+            --secondary-color: #3f51b5; /* Синий */
+            --accent-color: #FFD700; /* Золотой/Желтый */
+            --border-radius: 10px;
+            --item-bg: #2b2b2b;
+            --item-border: #444;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
         }
+
         .header {
-            background-color: #6a0dad;
-            color: white;
-            padding: 15px 20px;
+            background-color: var(--bg-medium);
+            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            border-bottom: 1px solid var(--bg-light);
         }
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        .balance {
-            font-size: 20px;
-            font-weight: bold;
+        .header-left {
             display: flex;
             align-items: center;
+            gap: 10px;
         }
-        .balance span {
-            margin-left: 8px;
-            color: #ffeb3b;
-        }
-        .nav-menu {
+        .header-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            background-color: var(--item-bg);
             display: flex;
-            justify-content: space-around;
-            background-color: #8a2be2;
-            padding: 10px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .nav-menu button {
-            background: none;
-            border: none;
-            color: white;
-            padding: 10px 15px;
+            justify-content: center;
+            align-items: center;
             font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            border-radius: 5px;
+            border: 1px solid var(--item-border);
         }
-        .nav-menu button.active {
-            background-color: #6a0dad;
+        .header-balance {
+            background-color: var(--item-bg);
+            padding: 5px 10px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            border: 1px solid var(--item-border);
         }
-        .nav-menu button:hover:not(.active) {
-            background-color: rgba(255,255,255,0.2);
+        .header-balance span {
+            margin-right: 5px;
+            color: #4dc2ff; /* Цвет для кристаллов/алмазов */
         }
-        .content {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: #f9f9f9;
-        }
-        .section {
-            display: none;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .section.active {
-            display: block;
-        }
-        .roulette-button {
-            padding: 15px 30px;
-            font-size: 20px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
+        .header-balance .add-btn {
             background-color: #4CAF50;
             color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            line-height: 1;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header-right .header-icon {
+            background-color: #4a4a4a;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 15px;
+            background-color: var(--bg-dark);
+        }
+
+        .case-title {
+            color: var(--accent-color);
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .case-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .case-navigation button {
+            background: none;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .case-navigation button:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .case-preview {
+            background-color: var(--item-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid var(--item-border);
+        }
+        .case-item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .case-item {
+            background-color: var(--bg-medium);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid var(--item-border);
+        }
+        .case-item img {
+            max-width: 80px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .case-item p {
+            font-size: 12px;
+            margin-top: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .open-button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .open-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
             transition: background-color 0.3s ease;
         }
-        .roulette-button:hover {
-            background-color: #45a049;
+        .open-button:hover {
+            background-color: #5a0997;
+        }
+        .open-button span {
+            margin-left: 8px;
+            color: var(--accent-color);
+        }
+
+        .info-message {
+            background-color: #3f51b5; /* Синий фон для информации */
+            color: white;
+            padding: 10px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .case-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 10px;
+        }
+
+        .footer-nav {
+            background-color: var(--bg-medium);
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid var(--bg-light);
+        }
+        .footer-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-color);
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .footer-nav-item i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        /* Иконки FontAwesome - для примера, нужно подключить */
+        .fa-cube, .fa-users, .fa-trophy, .fa-list, .fa-history {
+            color: var(--text-color);
+        }
+        .fa-home {
+            color: var(--primary-color); /* Активная иконка */
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="header">
-        <h1>NFT Рулетка</h1>
-        <div class="balance">
-            Баланс укусов: <span id="balanceAmount">1000</span> ⭐
+        <div class="header-left">
+            <div class="header-icon">🐸</div>
+            <div class="header-icon">⌚</div>
+            <div class="header-icon">🍭</div>
+            <div class="header-icon">🎉</div>
+            <div class="header-icon">🌹</div>
+            <div class="header-icon">🐉</div>
+        </div>
+        <div class="header-balance">
+            <span>0.234</span>
+            <button class="add-btn">+</button>
+        </div>
+        <div class="header-right">
+            <div class="header-icon">T</div>
         </div>
     </div>
 
-    <div class="nav-menu">
-        <button id="rouletteBtn" class="active">Рулетка</button>
-        <button id="inventoryBtn">Инвентарь</button>
-    </div>
+    <div class="main-content">
+        <div class="case-title">JADE LANTERN</div>
 
-    <div class="content">
-        <div id="rouletteSection" class="section active">
-            <h2>Рулетка</h2>
-            <p>Нажми кнопку, чтобы испытать удачу и выиграть NFT! Стоимость - 100 укусов.</p>
-            <button id="spinButton" class="roulette-button">Крутить</button>
-            <div id="result" style="margin-top: 20px; text-align: center;"></div>
+        <div class="case-navigation">
+            <button>&lt;</button>
+            <button>&gt;</button>
         </div>
 
-        <div id="inventorySection" class="section">
-            <h2>Инвентарь</h2>
-            <p>Здесь будут храниться все твои выигранные NFT.</p>
-            <ul id="inventoryList"></ul>
+        <div class="case-preview">
+            <p>Ваша модель подарка гарантирована, только фон случайный при выводе.</p>
+            <div class="case-item-grid">
+                <div class="case-item">
+                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT1" alt="NFT 1">
+                    <p>NFT #1</p>
+                </div>
+                <div class="case-item">
+                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT2" alt="NFT 2">
+                    <p>NFT #2</p>
+                </div>
+                <div class="case-item">
+                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT3" alt="NFT 3">
+                    <p>NFT #3</p>
+                </div>
+                <div class="case-item">
+                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT4" alt="NFT 4">
+                    <p>NFT #4</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="open-button-container">
+            <button class="open-button">Открыть за <span>0.5</span></button>
+        </div>
+
+        <div class="info-message">
+            Ваша модель подарка гарантирована, только фон случайный при выводе.
+        </div>
+
+        <div class="case-title" style="margin-top: 30px;">Содержимое кейса</div>
+        <div class="case-content-grid">
+            <div class="case-item">
+                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item1" alt="Item 1">
+                <p>Предмет #1</p>
+            </div>
+            <div class="case-item">
+                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item2" alt="Item 2">
+                <p>Предмет #2</p>
+            </div>
+            <div class="case-item">
+                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item3" alt="Item 3">
+                <p>Предмет #3</p>
+            </div>
+            <div class="case-item">
+                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item4" alt="Item 4">
+                <p>Предмет #4</p>
+            </div>
+            <div class="case-item">
+                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item5" alt="Item 5">
+                <p>Предмет #5</p>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="footer-nav">
+        <div class="footer-nav-item">
+            <i class="fas fa-cube"></i>
+            <span>Битва кейсов</span>
+        </div>
+        <div class="footer-nav-item">
+            <i class="fas fa-users"></i>
+            <span>Пригласить</span>
+        </div>
+        <div class="footer-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Главная</span>
+        </div>
+        <div class="footer-nav-item">
+            <i class="fas fa-trophy"></i>
+            <span>Рейтинг</span>
+        </div>
+        <div class="footer-nav-item">
+            <i class="fas fa-list"></i>
+            <span>Меню</span>
+        </div>
+    </div>
 </body>
 </html>
