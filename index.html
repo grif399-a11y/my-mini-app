@@ -19,6 +19,10 @@
             --border-radius: 10px;
             --item-bg: #2b2b2b;
             --item-border: #444;
+            --case-bg-color-1: #388e3c; /* Зеленый */
+            --case-bg-color-2: #d32f2f; /* Красный */
+            --case-bg-color-3: #fbc02d; /* Желтый */
+            --case-bg-color-4: #0288d1; /* Голубой */
         }
 
         body {
@@ -97,114 +101,68 @@
             flex-grow: 1;
             padding: 15px;
             background-color: var(--bg-dark);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 2 колонки на большинстве устройств */
+            gap: 15px;
+        }
+        @media (min-width: 768px) {
+            .main-content {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Больше колонок на широких экранах */
+            }
         }
 
-        .case-title {
-            color: var(--accent-color);
-            font-size: 28px;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 15px;
-        }
 
-        .case-navigation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .case-navigation button {
-            background: none;
-            border: 2px solid var(--primary-color);
-            color: var(--primary-color);
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .case-navigation button:hover {
-            background-color: var(--primary-color);
-            color: white;
-        }
-
-        .case-preview {
+        .case-box {
             background-color: var(--item-bg);
             border-radius: var(--border-radius);
-            padding: 20px;
-            margin-bottom: 20px;
+            padding: 15px;
             text-align: center;
             border: 1px solid var(--item-border);
-        }
-        .case-item-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin-top: 15px;
-        }
-        .case-item {
-            background-color: var(--bg-medium);
-            border-radius: 8px;
-            padding: 10px;
-            text-align: center;
-            border: 1px solid var(--item-border);
-        }
-        .case-item img {
-            max-width: 80px;
-            height: auto;
-            border-radius: 5px;
-        }
-        .case-item p {
-            font-size: 12px;
-            margin-top: 5px;
-            white-space: nowrap;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
             overflow: hidden;
-            text-overflow: ellipsis;
+            min-height: 180px; /* Фиксированная высота для равномерности */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
-
-        .open-button-container {
-            text-align: center;
-            margin-bottom: 20px;
+        .case-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .open-button {
+        .case-box img {
+            max-width: 100%;
+            height: 90px; /* Фиксированная высота для изображений */
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .case-box h3 {
+            font-size: 16px;
+            margin: 5px 0;
+            color: var(--text-color);
+        }
+        .case-price {
             background-color: var(--primary-color);
             color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 20px;
+            padding: 5px 10px;
+            border-radius: 5px;
             font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            margin-top: auto; /* Прижать цену к низу */
         }
-        .open-button:hover {
-            background-color: #5a0997;
-        }
-        .open-button span {
-            margin-left: 8px;
+        .case-price span {
+            margin-left: 5px;
             color: var(--accent-color);
         }
 
-        .info-message {
-            background-color: #3f51b5; /* Синий фон для информации */
-            color: white;
-            padding: 10px;
-            border-radius: var(--border-radius);
-            text-align: center;
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
+        /* Цвета для фона кейсов (для примера) */
+        .case-box[data-case-id="1"] { background-color: var(--case-bg-color-1); }
+        .case-box[data-case-id="2"] { background-color: var(--case-bg-color-2); }
+        .case-box[data-case-id="3"] { background-color: var(--case-bg-color-3); }
+        .case-box[data-case-id="4"] { background-color: var(--case-bg-color-4); }
 
-        .case-content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-        }
 
         .footer-nav {
             background-color: var(--bg-medium);
@@ -213,6 +171,9 @@
             justify-content: space-around;
             align-items: center;
             border-top: 1px solid var(--bg-light);
+            position: sticky; /* Прикрепляем к низу */
+            bottom: 0;
+            width: 100%;
         }
         .footer-nav-item {
             display: flex;
@@ -226,12 +187,108 @@
             font-size: 24px;
             margin-bottom: 5px;
         }
-        /* Иконки FontAwesome - для примера, нужно подключить */
         .fa-cube, .fa-users, .fa-trophy, .fa-list, .fa-history {
             color: var(--text-color);
         }
         .fa-home {
-            color: var(--primary-color); /* Активная иконка */
+            color: var(--primary-color);
+        }
+
+        /* Модальное окно для деталей кейса */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: var(--bg-dark);
+            margin: auto;
+            padding: 20px;
+            border: 1px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            position: relative;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--item-border);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .modal-header h2 {
+            margin: 0;
+            color: var(--accent-color);
+        }
+        .modal-close-button {
+            color: #aaa;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .modal-image {
+            max-width: 100%;
+            height: 150px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        .modal-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .modal-info p {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        .modal-open-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .modal-open-button:hover {
+            background-color: #5a0997;
+        }
+        .modal-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            border-top: 1px solid var(--item-border);
+            padding-top: 15px;
+        }
+        .modal-item {
+            background-color: var(--bg-medium);
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 12px;
+            border: 1px solid var(--item-border);
+        }
+        .modal-item img {
+            max-width: 60px;
+            height: auto;
+            border-radius: 3px;
+        }
+        .modal-item p {
+            margin: 5px 0 0;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -247,7 +304,7 @@
             <div class="header-icon">🐉</div>
         </div>
         <div class="header-balance">
-            <span>0.234</span>
+            <span id="balanceAmount">0.234</span>
             <button class="add-btn">+</button>
         </div>
         <div class="header-right">
@@ -255,68 +312,8 @@
         </div>
     </div>
 
-    <div class="main-content">
-        <div class="case-title">JADE LANTERN</div>
-
-        <div class="case-navigation">
-            <button>&lt;</button>
-            <button>&gt;</button>
+    <div class="main-content" id="caseGrid">
         </div>
-
-        <div class="case-preview">
-            <p>Ваша модель подарка гарантирована, только фон случайный при выводе.</p>
-            <div class="case-item-grid">
-                <div class="case-item">
-                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT1" alt="NFT 1">
-                    <p>NFT #1</p>
-                </div>
-                <div class="case-item">
-                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT2" alt="NFT 2">
-                    <p>NFT #2</p>
-                </div>
-                <div class="case-item">
-                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT3" alt="NFT 3">
-                    <p>NFT #3</p>
-                </div>
-                <div class="case-item">
-                    <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=NFT4" alt="NFT 4">
-                    <p>NFT #4</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="open-button-container">
-            <button class="open-button">Открыть за <span>0.5</span></button>
-        </div>
-
-        <div class="info-message">
-            Ваша модель подарка гарантирована, только фон случайный при выводе.
-        </div>
-
-        <div class="case-title" style="margin-top: 30px;">Содержимое кейса</div>
-        <div class="case-content-grid">
-            <div class="case-item">
-                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item1" alt="Item 1">
-                <p>Предмет #1</p>
-            </div>
-            <div class="case-item">
-                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item2" alt="Item 2">
-                <p>Предмет #2</p>
-            </div>
-            <div class="case-item">
-                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item3" alt="Item 3">
-                <p>Предмет #3</p>
-            </div>
-            <div class="case-item">
-                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item4" alt="Item 4">
-                <p>Предмет #4</p>
-            </div>
-            <div class="case-item">
-                <img src="https://via.placeholder.com/80/2b2b2b/f0f0f0?text=Item5" alt="Item 5">
-                <p>Предмет #5</p>
-            </div>
-        </div>
-    </div>
 
     <div class="footer-nav">
         <div class="footer-nav-item">
@@ -340,5 +337,26 @@
             <span>Меню</span>
         </div>
     </div>
+
+    <div id="caseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalCaseName">Название Кейса</h2>
+                <span class="modal-close-button">&times;</span>
+            </div>
+            <img id="modalCaseImage" src="" alt="Изображение кейса" class="modal-image">
+            <div class="modal-info">
+                <p id="modalCaseDescription">Описание кейса</p>
+                <p>Цена: <span id="modalCasePrice"></span> ⭐</p>
+            </div>
+            <button id="modalOpenButton" class="modal-open-button">Открыть кейс</button>
+            <div id="modalResult" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
+            <h3 style="margin-top: 20px; text-align: left;">Содержимое кейса:</h3>
+            <div id="modalCaseItems" class="modal-items-grid">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
