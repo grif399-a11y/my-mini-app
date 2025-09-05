@@ -3,43 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Моя Рулетка</title>
+    <title>Моя NFT Рулетка</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Arial', sans-serif;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #f0f0f0; /* Светлый фон */
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
-        .container {
-            text-align: center;
+        .header {
+            background-color: #6a0dad; /* Фиолетовый цвет для шапки */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .balance {
+            font-size: 20px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        .balance span {
+            margin-left: 8px;
+            color: #ffeb3b; /* Желтый для баланса */
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            background-color: #8a2be2; /* Чуть светлее фиолетовый для меню */
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .nav-menu button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+        }
+        .nav-menu button.active {
+            background-color: #6a0dad; /* Активная кнопка темнее */
+        }
+        .nav-menu button:hover:not(.active) {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .content {
+            flex-grow: 1;
             padding: 20px;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #f9f9f9; /* Почти белый для контента */
         }
-        button {
+        .section {
+            display: none; /* Скрываем все секции по умолчанию */
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .section.active {
+            display: block; /* Показываем активную секцию */
+        }
+        .roulette-button {
             padding: 15px 30px;
             font-size: 20px;
             cursor: pointer;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background-color: #4CAF50; /* Зеленая кнопка */
             color: white;
             transition: background-color 0.3s ease;
         }
-        button:hover {
-            background-color: #0056b3;
+        .roulette-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Добро пожаловать в Рулетку!</h1>
-        <button onclick="alert('Рулетка крутится!')">Крутить</button>
+    <div class="header">
+        <h1>NFT Рулетка</h1>
+        <div class="balance">
+            Баланс укусов: <span id="balanceAmount">1000</span> ⭐
+        </div>
     </div>
+
+    <div class="nav-menu">
+        <button id="rouletteBtn" class="active">Рулетка</button>
+        <button id="inventoryBtn">Инвентарь</button>
+    </div>
+
+    <div class="content">
+        <div id="rouletteSection" class="section active">
+            <h2>Рулетка</h2>
+            <p>Нажми кнопку, чтобы испытать удачу и выиграть NFT!</p>
+            <button class="roulette-button" onclick="alert('Крутим рулетку...')">Крутить</button>
+            <div id="result" style="margin-top: 20px;"></div>
+        </div>
+
+        <div id="inventorySection" class="section">
+            <h2>Инвентарь</h2>
+            <p>Здесь будут храниться все твои выигранные NFT.</p>
+            <ul>
+                <li>NFT #1 (пример)</li>
+                <li>NFT #2 (пример)</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Получаем ссылки на элементы
+        const rouletteBtn = document.getElementById('rouletteBtn');
+        const inventoryBtn = document.getElementById('inventoryBtn');
+        const rouletteSection = document.getElementById('rouletteSection');
+        const inventorySection = document.getElementById('inventorySection');
+        const balanceAmount = document.getElementById('balanceAmount');
+
+        // Функция для переключения секций
+        function showSection(sectionToShow, buttonToActivate) {
+            // Скрываем все секции
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            // Деактивируем все кнопки меню
+            document.querySelectorAll('.nav-menu button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Показываем нужную секцию
+            sectionToShow.classList.add('active');
+            // Активируем нужную кнопку
+            buttonToActivate.classList.add('active');
+        }
+
+        // Обработчики событий для кнопок меню
+        rouletteBtn.addEventListener('click', () => {
+            showSection(rouletteSection, rouletteBtn);
+        });
+
+        inventoryBtn.addEventListener('click', () => {
+            showSection(inventorySection, inventoryBtn);
+        });
+
+        // Здесь можно было бы получить реальный баланс с сервера
+        // Например: balanceAmount.textContent = '2500'; 
+    </script>
 </body>
 </html>
