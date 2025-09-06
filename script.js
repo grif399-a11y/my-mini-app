@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const addBalanceBtn = document.getElementById('addBalanceBtn');
     const purchaseModal = document.getElementById('purchaseModal');
     const purchaseButtons = document.querySelectorAll('.purchase-button');
-    
+
     // Получаем объект Telegram Web Apps
     const WebApp = window.Telegram.WebApp;
 
@@ -157,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             }, 1500);
         } else {
-            alert('Недостаточно укусов для открытия этого кейса!');
+            WebApp.showAlert('Недостаточно укусов для открытия этого кейса!');
         }
     });
 
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return items[items.length - 1].gift;
     }
 
-    // --- Логика покупки за "звезды" (имитация) ---
+    // --- Логика покупки за "звезды" (реальная) ---
     addBalanceBtn.addEventListener('click', () => {
         purchaseModal.style.display = 'flex';
     });
@@ -182,20 +182,11 @@ document.addEventListener('DOMContentLoaded', () => {
     purchaseButtons.forEach(button => {
         button.addEventListener('click', () => {
             const amountToAdd = parseInt(button.getAttribute('data-amount'));
-            const costInStars = amountToAdd / 100; // 1 укус = 1 звезда (1000 укусов = 10 звёзд)
             
-            // Имитация открытия платежного окна
-            WebApp.showConfirm(`Вы уверены, что хотите купить ${amountToAdd} укусов за ${costInStars} ⭐?`, (isConfirmed) => {
-                if (isConfirmed) {
-                    currentBalance += amountToAdd;
-                    balanceAmount.textContent = currentBalance;
-                    saveBalance(currentBalance);
-                    purchaseModal.style.display = 'none';
-                    WebApp.showAlert(`Укусы успешно куплены! Ваш баланс: ${currentBalance}`);
-                } else {
-                    WebApp.showAlert('Покупка отменена.');
-                }
-            });
+            const data = { amount: amountToAdd };
+            WebApp.sendData(JSON.stringify(data));
+
+            purchaseModal.style.display = 'none';
         });
     });
 
