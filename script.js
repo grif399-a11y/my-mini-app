@@ -1,27 +1,27 @@
 // Объект, содержащий все возможные подарки в приложении.
-// Это центральный "склад" подарков.
 const allGifts = {
-    wineBottle_1: { name: 'Вино "Классическое"', value: 10, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_1.png' },
-    wineBottle_2: { name: 'Вино "Пино Нуар"', value: 12, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_2.png' },
-    wineBottle_3: { name: 'Вино "Совиньон"', value: 15, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_3.png' },
-    wineBottle_4: { name: 'Вино "Каберне"', value: 18, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_4.png' },
-    wineBottle_5: { name: 'Вино "Мерло"', value: 20, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_5.png' },
-    wineBottle_6: { name: 'Вино "Розе"', value: 22, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_6.png' },
-    wineBottle_7: { name: 'Вино "Рислинг"', value: 25, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_7.png' },
-    wineBottle_8: { name: 'Вино "Шардоне"', value: 30, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_8.png' },
-    wineBottle_9: { name: 'Вино "Порто"', value: 35, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_9.png' },
-    wineBottle_10: { name: 'Вино "Красное полусладкое"', value: 40, image: 'ВАША_ССЫЛКА_НА_ИЗОБРАЖЕНИЕ_ВИНА_10.png' },
+    // ЗАМЕНИТЕ ЭТИ URL-АДРЕСА НА ВАШИ РЕАЛЬНЫЕ ССЫЛКИ НА ИЗОБРАЖЕНИЯ
+    wineBottle_1: { name: 'Вино "Классическое"', value: 10, image: 'https://i.ibb.co/37y4027/gift.jpg' },
+    wineBottle_2: { name: 'Вино "Пино Нуар"', value: 12, image: 'https://i.ibb.co/L5hY59n/bear.jpg' },
+    wineBottle_3: { name: 'Вино "Совиньон"', value: 15, image: 'https://i.ibb.co/P440f80/ring.jpg' },
+    wineBottle_4: { name: 'Вино "Каберне"', value: 18, image: 'https://i.ibb.co/BPL233B/rocket.jpg' },
+    wineBottle_5: { name: 'Вино "Мерло"', value: 20, image: 'https://i.ibb.co/m0fH4L3/Jester-Hat.jpg' },
+    wineBottle_6: { name: 'Вино "Розе"', value: 22, image: 'https://i.ibb.co/1n5b64S/Snoop-Cigar.jpg' },
+    wineBottle_7: { name: 'Вино "Рислинг"', value: 25, image: 'https://i.ibb.co/F6bF9hP/Snake-Box.jpg' },
+    wineBottle_8: { name: 'Вино "Шардоне"', value: 30, image: 'https://i.ibb.co/m4xL27N/Lol-Pop.jpg' },
+    wineBottle_9: { name: 'Вино "Порто"', value: 35, image: 'https://i.ibb.co/t4jT00y/Desk-Calendar.jpg' },
+    wineBottle_10: { name: 'Вино "Красное полусладкое"', value: 40, image: 'https://i.ibb.co/PcgR6sP/Jade-Lantern.jpg' },
     
     // Ваши подарки
-    heart: { name: 'Сердце', value: 15, image: 'https://i.ibb.co/L5hY59n/bear.jpg' }, 
-    bear: { name: 'Мишка', value: 14, image: 'https://i.ibb.co/37y4027/gift.jpg' },
-    giftBox: { name: 'Подарок', value: 25, image: 'https://i.ibb.co/P440f80/ring.jpg' },
+    heart: { name: 'Сердце', value: 15, image: 'https://i.ibb.co/P440f80/ring.jpg' }, 
+    bear: { name: 'Мишка', value: 14, image: 'https://i.ibb.co/L5hY59n/bear.jpg' },
+    giftBox: { name: 'Подарок', value: 25, image: 'https://i.ibb.co/37y4027/gift.jpg' },
     rose: { name: 'Роза', value: 25, image: 'https://i.ibb.co/BPL233B/rocket.jpg' },
     cake: { name: 'Торт', value: 50, image: 'https://i.ibb.co/m0fH4L3/Jester-Hat.jpg' },
     bouquet: { name: 'Букет', value: 50, image: 'https://i.ibb.co/1n5b64S/Snoop-Cigar.jpg' },
     rocket: { name: 'Ракета', value: 50, image: 'https://i.ibb.co/F6bF9hP/Snake-Box.jpg' },
     trophy: { name: 'Кубок', value: 100, image: 'https://i.ibb.co/m4xL27N/Lol-Pop.jpg' },
-    ring: { name: 'Кольцо', value: 100, image: 'https://i.ibb.co/t4jT00y/Desk-Calendar.jpg' },
+    ring: { name: 'Кольцо', value: 100, image: 'https://i.ibb.co/P440f80/ring.jpg' },
     diamond: { name: 'Бриллиант', value: 100, image: 'https://i.ibb.co/PcgR6sP/Jade-Lantern.jpg' },
     champagne: { name: 'Шампанское', value: 50, image: 'https://i.ibb.co/PcgR6sP/Jade-Lantern.jpg' },
     birthdayCake: { name: 'Праздничный торт', value: 500, image: 'https://i.ibb.co/m0fH4L3/Jester-Hat.jpg' },
@@ -31,16 +31,15 @@ const allGifts = {
 };
 
 // Массив, содержащий все кейсы.
-// Кейсы могут содержать любые подарки из allGifts.
 const cases = [
     {
         id: 1,
         name: 'Бомж деп',
         description: 'Кейс для самых скромных.',
-        image: 'ВАША_ССЫЛКА_НА_КАРТИНКУ_КЕЙСА_БОМЖ_ДЕП.png',
-        price: 25, // Цена за открытие кейса
+        // ЗАМЕНИТЕ ЭТОТ URL-АДРЕС НА ВАШ РЕАЛЬНЫЙ
+        image: 'https://i.ibb.co/P440f80/ring.jpg',
+        price: 25,
         items: [
-            // Шансы распределены так, что дорогие подарки имеют очень маленький шанс.
             { gift: allGifts.wineBottle_1, chance: 15 },
             { gift: allGifts.wineBottle_2, chance: 15 },
             { gift: allGifts.wineBottle_3, chance: 15 },
@@ -50,39 +49,31 @@ const cases = [
             { gift: allGifts.heart, chance: 5 },
             { gift: allGifts.bear, chance: 5 },
             { gift: allGifts.cake, chance: 5 },
-            { gift: allGifts.trophy, chance: 2.5 }, // Редкий
-            { gift: allGifts.ring, chance: 2.5 },   // Редкий
-            { gift: allGifts.diamond, chance: 0.5 }, // Очень редкий
-            { gift: allGifts.birthdayCake, chance: 0.5 }, // Очень редкий
+            { gift: allGifts.trophy, chance: 2.5 }, 
+            { gift: allGifts.ring, chance: 2.5 },   
+            { gift: allGifts.diamond, chance: 0.5 }, 
+            { gift: allGifts.birthdayCake, chance: 0.5 }, 
         ]
     },
     // Здесь вы можете добавить другие кейсы по аналогии
 ];
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    const caseContainer = document.getElementById('caseContainer');
-    const balanceSpan = document.getElementById('balance');
-    const openCaseButton = document.getElementById('openCaseButton');
+    const caseGrid = document.getElementById('caseGrid');
+    const balanceAmount = document.getElementById('balanceAmount');
     const caseModal = document.getElementById('caseModal');
-    const closeCaseModalButton = document.getElementById('closeCaseModal');
-    const modalCaseTitle = document.getElementById('modalCaseTitle');
-    const modalCaseDescription = document.getElementById('modalCaseDescription');
+    const purchaseModal = document.getElementById('purchaseModal');
+    const modalCaseName = document.getElementById('modalCaseName');
     const modalCaseImage = document.getElementById('modalCaseImage');
-    const modalItemsList = document.getElementById('modalItemsList');
-    const modalOpenCaseButton = document.getElementById('modalOpenCaseButton');
-    const winningModal = document.getElementById('winningModal');
-    const winningItemImage = document.getElementById('winningItemImage');
-    const winningItemName = document.getElementById('winningItemName');
-    const winningItemValue = document.getElementById('winningItemValue');
-    const closeWinningModalButton = document.getElementById('closeWinningModal');
-    
-    // Новая кнопка "Продать"
-    const sellButton = document.getElementById('sellButton');
+    const modalCaseDescription = document.getElementById('modalCaseDescription');
+    const modalCasePrice = document.getElementById('modalCasePrice');
+    const modalOpenButton = document.getElementById('modalOpenButton');
+    const modalCaseItems = document.getElementById('modalCaseItems');
+    const addBalanceBtn = document.getElementById('addBalanceBtn');
+    const modalCloseButtons = document.querySelectorAll('.modal-close-button');
+    const purchaseButtons = document.querySelectorAll('.purchase-button');
 
-    let userBalance = 0;
     let selectedCase = null;
-    let lastWonGift = null;
 
     // Инициализация Web App
     if (window.Telegram && window.Telegram.WebApp) {
@@ -90,52 +81,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function generateCaseBoxes() {
-        caseContainer.innerHTML = '';
+        caseGrid.innerHTML = '';
         cases.forEach(caseData => {
             const caseBox = document.createElement('div');
             caseBox.className = 'case-box';
+            caseBox.dataset.caseId = caseData.id;
             caseBox.innerHTML = `
                 <img src="${caseData.image}" alt="${caseData.name}">
                 <h3>${caseData.name}</h3>
-                <p>${caseData.description}</p>
-                <button class="open-case-btn" data-case-id="${caseData.id}">Открыть за ${caseData.price} ⭐</button>
+                <div class="case-price">
+                    ${caseData.price} <span>⭐</span>
+                </div>
             `;
-            caseBox.querySelector('.open-case-btn').addEventListener('click', () => {
+            caseBox.addEventListener('click', () => {
                 openCaseModal(caseData);
             });
-            caseContainer.appendChild(caseBox);
+            caseGrid.appendChild(caseBox);
         });
     }
 
     function openCaseModal(caseData) {
         selectedCase = caseData;
-        modalCaseTitle.textContent = caseData.name;
-        modalCaseDescription.textContent = caseData.description;
+        modalCaseName.textContent = caseData.name;
         modalCaseImage.src = caseData.image;
-        modalOpenCaseButton.textContent = `Открыть за ${caseData.price} ⭐`;
+        modalCaseDescription.textContent = caseData.description;
+        modalCasePrice.textContent = caseData.price;
+        modalOpenButton.textContent = `Открыть кейс за ${caseData.price} ⭐`;
 
-        modalItemsList.innerHTML = '';
+        modalCaseItems.innerHTML = '';
         caseData.items.forEach(item => {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = `
+            const itemElement = document.createElement('div');
+            itemElement.className = 'modal-item';
+            itemElement.innerHTML = `
                 <img src="${item.gift.image}" alt="${item.gift.name}">
-                <span>${item.gift.name}</span>
-                <span class="item-value">${item.gift.value} ⭐</span>
-                <span class="item-chance">${item.chance}%</span>
+                <p>${item.gift.name}</p>
+                <p>${item.chance}%</p>
             `;
-            modalItemsList.appendChild(listItem);
+            modalCaseItems.appendChild(itemElement);
         });
 
-        caseModal.style.display = 'block';
+        caseModal.style.display = 'flex';
     }
 
-    function closeCaseModal() {
+    function closeAllModals() {
         caseModal.style.display = 'none';
-        selectedCase = null;
-    }
-
-    function closeWinningModal() {
-        winningModal.style.display = 'none';
+        purchaseModal.style.display = 'none';
     }
 
     function getRandomItem(items) {
@@ -150,41 +140,40 @@ document.addEventListener('DOMContentLoaded', () => {
         return items[items.length - 1].gift;
     }
 
-    modalOpenCaseButton.addEventListener('click', () => {
+    modalOpenButton.addEventListener('click', () => {
         if (!selectedCase) return;
 
-        // Отправляем запрос боту на открытие кейса
         if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.sendData) {
-            window.Telegram.WebApp.sendData(JSON.stringify({ type: 'openCase', price: selectedCase.price }));
+            window.Telegram.WebApp.sendData(JSON.stringify({ 
+                type: 'openCase', 
+                price: selectedCase.price,
+                // Генерация и отправка выигрыша
+                wonGift: getRandomItem(selectedCase.items) 
+            }));
         }
-
-        // Логика открытия кейса
-        const wonGift = getRandomItem(selectedCase.items);
-        lastWonGift = wonGift; // Сохраняем выигранный подарок
-        
-        // Обновление модального окна с выигрышем
-        winningItemImage.src = wonGift.image;
-        winningItemName.textContent = wonGift.name;
-        winningItemValue.textContent = `${wonGift.value} ⭐`;
-        winningModal.style.display = 'block';
-        closeCaseModal();
+        closeAllModals();
     });
 
-    // Новая логика для кнопки "Продать"
-    sellButton.addEventListener('click', () => {
-        if (lastWonGift) {
-            const sellValue = lastWonGift.value;
+    addBalanceBtn.addEventListener('click', () => {
+        purchaseModal.style.display = 'flex';
+    });
+    
+    purchaseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const amount = button.dataset.amount;
             if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.sendData) {
-                // Отправляем боту данные о продаже
-                window.Telegram.WebApp.sendData(JSON.stringify({ type: 'sellGift', value: sellValue }));
+                window.Telegram.WebApp.sendData(JSON.stringify({ 
+                    type: 'purchase', 
+                    amount: amount 
+                }));
             }
-            // Закрываем модальное окно после продажи
-            closeWinningModal();
-        }
+            closeAllModals();
+        });
     });
 
-    closeCaseModalButton.addEventListener('click', closeCaseModal);
-    closeWinningModalButton.addEventListener('click', closeWinningModal);
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', closeAllModals);
+    });
 
     generateCaseBoxes();
 });
