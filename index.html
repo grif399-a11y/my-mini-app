@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Битва Кейсов</title>
+    <title>NFT Кейсы</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         * {
@@ -17,11 +17,6 @@
             background: #000000;
             color: #ffffff;
             min-height: 100vh;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 100%;
             padding: 16px;
             padding-bottom: 80px;
         }
@@ -33,190 +28,30 @@
             padding: 12px 16px;
             background: #1a1a1a;
             border-radius: 12px;
-            margin-bottom: 16px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .user-details {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .user-id {
-            font-size: 12px;
-            color: #888;
+            margin-bottom: 20px;
         }
 
         .balance {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 600;
             color: #FFD700;
         }
 
-        .main-content {
-            display: none;
-        }
-
-        .main-content.active {
-            display: block;
+        .add-balance {
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
         }
 
         .section-title {
             font-size: 20px;
             font-weight: 700;
-            margin: 20px 0 16px 0;
-            text-align: center;
-        }
-
-        .profile-card {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .username {
-            font-size: 18px;
-            font-weight: 600;
-            margin: 10px 0;
-        }
-
-        .inventory-section {
             margin: 20px 0;
-        }
-
-        .inventory-empty {
             text-align: center;
-            color: #888;
-            margin: 20px 0;
-        }
-
-        .open-cases-btn {
-            background: linear-gradient(135deg, #007AFF, #5856D6);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            width: 100%;
-            margin: 20px 0;
-            cursor: pointer;
-        }
-
-        .referral-section {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .referral-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .referral-balance {
-            background: #2a2a2a;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-        }
-
-        .balance-amount {
-            font-size: 24px;
-            font-weight: 700;
-            color: #FFD700;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .withdraw-btn {
-            background: #007AFF;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            width: 100%;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .referral-info {
-            font-size: 12px;
-            color: #888;
-            line-height: 1.4;
-            margin-top: 15px;
-        }
-
-        .rating-section {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .rating-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .rating-tab {
-            flex: 1;
-            background: #2a2a2a;
-            border: none;
-            color: #fff;
-            padding: 8px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-
-        .rating-tab.active {
-            background: #007AFF;
-        }
-
-        .rating-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .rating-table th {
-            text-align: left;
-            padding: 10px;
-            font-size: 12px;
-            color: #888;
-            border-bottom: 1px solid #333;
-        }
-
-        .rating-table td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #333;
-        }
-
-        .user-place {
-            font-weight: 600;
-            color: #FFD700;
         }
 
         .cases-grid {
@@ -231,6 +66,12 @@
             border-radius: 12px;
             padding: 15px;
             text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .case-card:hover {
+            transform: scale(1.05);
         }
 
         .case-image {
@@ -252,69 +93,52 @@
             font-size: 16px;
         }
 
-        .risk-cases {
+        .inventory {
             background: #1a1a1a;
-            border-radius: 16px;
+            border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
         }
 
-        .risk-title {
+        .inventory-title {
             font-size: 18px;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 15px;
             text-align: center;
-            color: #FF6B6B;
         }
 
-        .risk-grid {
+        .inventory-items {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
-        .risk-item {
+        .inventory-item {
             background: #2a2a2a;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 10px;
+            border-radius: 8px;
             text-align: center;
         }
 
-        .risk-price {
+        .item-name {
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .item-value {
             color: #FFD700;
-            font-weight: 700;
-            font-size: 16px;
-            margin-top: 8px;
+            font-size: 11px;
         }
 
-        .footer-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: #1a1a1a;
-            padding: 12px 16px;
-            display: flex;
-            justify-content: space-around;
-            border-top: 1px solid #333;
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #888;
+        .sell-btn {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
             font-size: 11px;
             cursor: pointer;
-        }
-
-        .nav-item.active {
-            color: #007AFF;
-        }
-
-        .nav-icon {
-            font-size: 20px;
-            margin-bottom: 4px;
+            margin-top: 5px;
         }
 
         .modal {
@@ -334,260 +158,235 @@
             background: #1a1a1a;
             border-radius: 20px;
             padding: 30px;
+            text-align: center;
             max-width: 90%;
-            max-height: 90%;
-            overflow-y: auto;
+        }
+
+        .won-item {
+            margin: 20px 0;
+        }
+
+        .won-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
         }
 
         .modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: #888;
-            font-size: 30px;
+            background: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
             cursor: pointer;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <div class="user-info">
-                <div class="user-avatar">T</div>
-                <div class="user-details">
-                    <div class="user-id">UQBx6...R-rl</div>
-                    <div class="balance" id="balanceAmount">0.234</div>
-                </div>
-            </div>
+    <div class="header">
+        <div class="balance" id="balanceAmount">0 ⭐</div>
+        <button class="add-balance" onclick="topUpBalance()">Пополнить</button>
+    </div>
+
+    <div class="section-title">🎰 NFT Кейсы</div>
+
+    <div class="cases-grid">
+        <div class="case-card" onclick="openCase('common', 10)">
+            <div class="case-name">Обычный кейс</div>
+            <div class="case-price">10 ⭐</div>
         </div>
-
-        <!-- Profile Page -->
-        <div id="profilePage" class="main-content active">
-            <div class="profile-card">
-                <div class="user-avatar" style="margin: 0 auto; width: 60px; height: 60px; font-size: 24px;">T</div>
-                <div class="username">@tegenik</div>
-                <div class="balance">Баланс: 0.234 ⭐</div>
-            </div>
-
-            <div class="inventory-section">
-                <div class="section-title">Ваш инвентарь</div>
-                <div class="inventory-empty">Вы ещё не открывали кейсы</div>
-            </div>
-
-            <button class="open-cases-btn" onclick="switchPage('casesPage')">Открыть кейсы</button>
-
-            <div class="referral-section">
-                <div class="referral-title">Приглашайте друзей и зарабатывайте TON с кейсов</div>
-                <div class="referral-balance">
-                    <div class="balance-amount">0.00</div>
-                    <div style="text-align: center; color: #888; margin-bottom: 10px;">Баланс рефералов</div>
-                    <button class="withdraw-btn">Вывести</button>
-                </div>
-                <div class="referral-info">
-                    Выплаты по партнерской программе доступны через 7 дней после начала программы, а затем каждые 7 дней после последней выплаты. Выплата производиться на ваш баланс в приложении или TON кошелек.
-                </div>
-            </div>
+        
+        <div class="case-card" onclick="openCase('rare', 25)">
+            <div class="case-name">Редкий кейс</div>
+            <div class="case-price">25 ⭐</div>
         </div>
-
-        <!-- Rating Page -->
-        <div id="ratingPage" class="main-content">
-            <div class="section-title">РЕЙТИНГ</div>
-            
-            <div class="rating-tabs">
-                <button class="rating-tab active">За всё время</button>
-                <button class="rating-tab">За неделю</button>
-                <button class="rating-tab">За месяц</button>
-            </div>
-
-            <table class="rating-table">
-                <thead>
-                    <tr>
-                        <th>Пользователь</th>
-                        <th>Заработано</th>
-                        <th>Место</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>getrich</td>
-                        <td>Открыто 5561 кейсов</td>
-                        <td class="user-place">150206.83 #1</td>
-                    </tr>
-                    <tr>
-                        <td>Gro_oza</td>
-                        <td>Открыто 9293 кейсов</td>
-                        <td class="user-place">13335.868 #2</td>
-                    </tr>
-                    <tr>
-                        <td>guest_6781414...</td>
-                        <td>Открыто 2759 кейсов</td>
-                        <td class="user-place">12188.906 #3</td>
-                    </tr>
-                    <tr>
-                        <td>Vladyslav Pas</td>
-                        <td>Открыто 1565 кейсов</td>
-                        <td class="user-place">7457.52 #4</td>
-                    </tr>
-                    <tr>
-                        <td>kamzhad</td>
-                        <td>Открыто 845 кейсов</td>
-                        <td class="user-place">7339.074 #5</td>
-                    </tr>
-                </tbody>
-            </table>
+        
+        <div class="case-card" onclick="openCase('epic', 50)">
+            <div class="case-name">Эпический кейс</div>
+            <div class="case-price">50 ⭐</div>
         </div>
-
-        <!-- Cases Page -->
-        <div id="casesPage" class="main-content">
-            <div class="cases-grid">
-                <div class="case-card">
-                    <div class="case-name">Only Swiss</div>
-                    <div class="case-price">300.00 ⭐</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Only Lost Bag</div>
-                    <div class="case-price">1000.00 ⭐</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Only Durov's Cap</div>
-                    <div class="case-price">15.00 ⭐</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Only Pepe</div>
-                    <div class="case-price">45.00 ⭐</div>
-                </div>
-            </div>
-
-            <div class="risk-cases">
-                <div class="risk-title">Gummy Pepe</div>
-                <div class="risk-title">РИСКОВАННЫЕ КЕЙСЫ</div>
-                
-                <div class="risk-grid">
-                    <div class="risk-item">
-                        <div class="case-name">[Risk] Watch Copper</div>
-                        <div class="risk-price">0.50 ⭐</div>
-                    </div>
-                    <div class="risk-item">
-                        <div class="case-name">[Risk] Hard Helmet</div>
-                        <div class="risk-price">3.00 ⭐</div>
-                    </div>
-                    <div class="risk-item">
-                        <div class="case-name">[Risk] Iron Cap</div>
-                        <div class="risk-price">10.00 ⭐</div>
-                    </div>
-                    <div class="risk-item">
-                        <div class="case-name">[Risk] Marble Pepe</div>
-                        <div class="risk-price">40.00 ⭐</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Menu Page -->
-        <div id="menuPage" class="main-content">
-            <div class="profile-card">
-                <div class="user-avatar" style="margin: 0 auto; width: 60px; height: 60px; font-size: 24px;">T</div>
-                <div class="username">tegenik</div>
-                <div class="balance">Баланс UQBx6...R-rl</div>
-                <div class="balance">0.234</div>
-            </div>
-
-            <div class="section-title">#7105204213</div>
-
-            <button class="open-cases-btn">Пополнить</button>
-
-            <div class="cases-grid">
-                <div class="case-card">
-                    <div class="case-name">Вам профиль</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">БИТВЫ</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">МОДЕРНИЗАТОР</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Колесо скоро</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Инвентарь</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Партнёрская программа</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Настройки</div>
-                </div>
-                <div class="case-card">
-                    <div class="case-name">Условия использования</div>
-                </div>
-            </div>
-
-            <button class="open-cases-btn">Подключить TON кошелёк</button>
+        
+        <div class="case-card" onclick="openCase('legendary', 100)">
+            <div class="case-name">Легендарный кейс</div>
+            <div class="case-price">100 ⭐</div>
         </div>
     </div>
 
-    <!-- Footer Navigation -->
-    <div class="footer-nav">
-        <div class="nav-item" onclick="switchPage('casesPage')">
-            <div class="nav-icon">🎰</div>
-            <span>Битва кейсов</span>
+    <div class="inventory">
+        <div class="inventory-title">🎁 Мой инвентарь</div>
+        <div class="inventory-items" id="inventoryItems">
+            <!-- Инвентарь будет здесь -->
         </div>
-        <div class="nav-item" onclick="switchPage('invitePage')">
-            <div class="nav-icon">👥</div>
-            <span>Пригласить</span>
-        </div>
-        <div class="nav-item" onclick="switchPage('ratingPage')">
-            <div class="nav-icon">📊</div>
-            <span>Рейтинг</span>
-        </div>
-        <div class="nav-item active" onclick="switchPage('menuPage')">
-            <div class="nav-icon">☰</div>
-            <span>Меню</span>
+    </div>
+
+    <!-- Модальное окно выигрыша -->
+    <div class="modal" id="winModal">
+        <div class="modal-content">
+            <h2>🎉 ПОЗДРАВЛЯЕМ!</h2>
+            <div class="won-item">
+                <img id="wonItemImage" src="">
+                <h3 id="wonItemName"></h3>
+                <p id="wonItemValue"></p>
+            </div>
+            <button class="modal-close" onclick="closeModal()">OK</button>
         </div>
     </div>
 
     <script>
-        let currentBalance = 0.234;
+        let balance = 0;
+        let inventory = [];
+
+        // NFT подарки для каждого типа кейса
+        const nftItems = {
+            common: [
+                { name: "Мишка", value: 5, image: "🐻" },
+                { name: "Сердечко", value: 8, image: "❤️" },
+                { name: "Звезда", value: 10, image: "⭐" }
+            ],
+            rare: [
+                { name: "Ракета", value: 15, image: "🚀" },
+                { name: "Алмаз", value: 20, image: "💎" },
+                { name: "Корона", value: 25, image: "👑" }
+            ],
+            epic: [
+                { name: "Дракон", value: 30, image: "🐲" },
+                { name: "Кольцо", value: 40, image: "💍" },
+                { name: "Сокровище", value: 50, image: "📦" }
+            ],
+            legendary: [
+                { name: "Супер звезда", value: 75, image: "🌟" },
+                { name: "Трофей", value: 100, image: "🏆" },
+                { name: "Легенда", value: 150, image: "🔥" }
+            ]
+        };
 
         function updateBalance() {
-            document.getElementById('balanceAmount').textContent = currentBalance.toFixed(3);
+            document.getElementById('balanceAmount').textContent = balance + " ⭐";
         }
 
-        function switchPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.main-content').forEach(page => {
-                page.classList.remove('active');
+        function updateInventory() {
+            const container = document.getElementById('inventoryItems');
+            container.innerHTML = '';
+
+            if (inventory.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #888;">Инвентарь пуст</div>';
+                return;
+            }
+
+            inventory.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'inventory-item';
+                itemElement.innerHTML = `
+                    <div style="font-size: 24px;">${item.image}</div>
+                    <div class="item-name">${item.name}</div>
+                    <div class="item-value">${item.value} ⭐</div>
+                    <button class="sell-btn" onclick="sellItem(${index})">Продать</button>
+                `;
+                container.appendChild(itemElement);
             });
+        }
+
+        function openCase(caseType, price) {
+            if (balance >= price) {
+                balance -= price;
+                updateBalance();
+
+                // Выбираем случайный NFT
+                const items = nftItems[caseType];
+                const wonItem = items[Math.floor(Math.random() * items.length)];
+                
+                // Добавляем в инвентарь
+                inventory.push(wonItem);
+                updateInventory();
+
+                // Показываем модальное окно
+                document.getElementById('wonItemImage').textContent = wonItem.image;
+                document.getElementById('wonItemName').textContent = wonItem.name;
+                document.getElementById('wonItemValue').textContent = "Ценность: " + wonItem.value + " ⭐";
+                document.getElementById('winModal').style.display = 'flex';
+
+                // Отправляем данные в бота
+                if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                    Telegram.WebApp.sendData(JSON.stringify({
+                        type: 'openCase',
+                        caseType: caseType,
+                        price: price,
+                        wonItem: wonItem.name,
+                        itemValue: wonItem.value
+                    }));
+                }
+
+            } else {
+                alert('❌ Недостаточно звёзд! Пополните баланс.');
+            }
+        }
+
+        function sellItem(index) {
+            const item = inventory[index];
+            balance += item.value;
+            inventory.splice(index, 1);
             
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Update navigation
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // Find and activate current nav item
-            document.querySelectorAll('.nav-item').forEach(item => {
-                if (item.textContent.includes(
-                    pageId === 'casesPage' ? 'Битва' :
-                    pageId === 'invitePage' ? 'Пригласить' :
-                    pageId === 'ratingPage' ? 'Рейтинг' : 'Меню'
-                )) {
-                    item.classList.add('active');
+            updateBalance();
+            updateInventory();
+
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                Telegram.WebApp.sendData(JSON.stringify({
+                    type: 'sellItem',
+                    itemValue: item.value
+                }));
+            }
+        }
+
+        function topUpBalance() {
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                // Отправляем запрос на пополнение
+                Telegram.WebApp.sendData(JSON.stringify({
+                    type: 'topUpBalance'
+                }));
+            } else {
+                alert('Откройте приложение через Telegram бота для пополнения');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('winModal').style.display = 'none';
+        }
+
+        // Инициализация
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+
+            // Запрашиваем данные у бота
+            Telegram.WebApp.sendData(JSON.stringify({
+                type: 'getData'
+            }));
+        }
+
+        // Обработка сообщений от бота
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+            Telegram.WebApp.onEvent('message', (message) => {
+                try {
+                    const data = JSON.parse(message);
+                    if (data.balance !== undefined) {
+                        balance = data.balance;
+                        updateBalance();
+                    }
+                    if (data.inventory !== undefined) {
+                        inventory = data.inventory;
+                        updateInventory();
+                    }
+                } catch (e) {
+                    console.error('Error:', e);
                 }
             });
         }
 
-        // Initialize
-        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-            Telegram.WebApp.ready();
-            Telegram.WebApp.expand();
-        }
-
         updateBalance();
+        updateInventory();
     </script>
 </body>
 </html>
