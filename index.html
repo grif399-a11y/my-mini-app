@@ -3,338 +3,480 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Cases</title>
+    <title>Битва Кейсов</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --bg-dark: #1a1a1a;
-            --bg-medium: #2a2a2a;
-            --bg-light: #3a3a3a;
-            --text-color: #f0f0f0;
-            --primary-color: #6a0dad;
-            --accent-color: #FFD700;
-            --secondary-accent: #007bff;
-            --border-radius: 10px;
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --bg-item: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-gold: #FFD700;
+            --accent-blue: #4dc2ff;
+            --accent-green: #00ff88;
+            --accent-purple: #9370DB;
         }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            background-color: var(--bg-dark);
-            color: var(--text-color);
-            display: flex;
-            flex-direction: column;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 0;
         }
-        /* Layout Sections */
+
         .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--bg-dark);
+            max-width: 100%;
+            padding: 10px;
         }
+
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 15px;
-            background-color: var(--bg-medium);
-            border-bottom: 1px solid var(--bg-light);
-            z-index: 10;
+            padding: 15px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+            border-radius: 15px;
+            margin-bottom: 15px;
         }
-        .header-left, .header-right {
+
+        .balance {
             display: flex;
             align-items: center;
             gap: 10px;
+            background: var(--bg-item);
+            padding: 10px 15px;
+            border-radius: 25px;
         }
-        .header-balance {
-            background-color: var(--bg-light);
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+
+        .balance-amount {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 18px;
         }
-        .header-balance span {
-            color: var(--accent-color);
-        }
-        .header-balance .add-btn {
-            background-color: #4CAF50;
-            color: white;
+
+        .add-balance {
+            background: var(--accent-green);
+            color: black;
             border: none;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            cursor: pointer;
+            width: 30px;
+            height: 30px;
             font-size: 18px;
-            line-height: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .header-icon {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: var(--bg-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
             cursor: pointer;
         }
-        .main-content {
-            flex: 1;
+
+        .main-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 20px 0;
+            color: var(--accent-gold);
+        }
+
+        .wheel-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .wheel-title {
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--accent-blue);
+        }
+
+        .wheel-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .wheel-item {
+            background: var(--bg-item);
             padding: 15px;
-            display: none;
-            flex-direction: column;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
         }
-        .main-content.active {
-            display: flex;
+
+        .wheel-item:hover {
+            border-color: var(--accent-gold);
+            transform: translateY(-2px);
         }
+
+        .wheel-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            margin-bottom: 8px;
+        }
+
+        .wheel-item-name {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: var(--text-secondary);
+        }
+
+        .wheel-item-price {
+            color: var(--accent-gold);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .open-button {
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
+            color: black;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .open-button:hover {
+            transform: scale(1.02);
+        }
+
+        .price-tag {
+            background: var(--bg-item);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .case-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-3px);
+        }
+
+        .case-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin: 0 auto 10px;
+        }
+
+        .case-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .case-price {
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
         .footer-nav {
-            background-color: var(--bg-medium);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-card);
+            padding: 15px;
             display: flex;
             justify-content: space-around;
-            align-items: center;
-            padding: 10px 0;
-            border-top: 1px solid var(--bg-light);
-            position: sticky;
-            bottom: 0;
-            width: 100%;
-            z-index: 10;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
+
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #777;
+            color: var(--text-secondary);
             font-size: 12px;
             cursor: pointer;
             transition: color 0.3s ease;
         }
+
         .nav-item i {
             font-size: 24px;
             margin-bottom: 5px;
         }
+
         .nav-item.active {
-            color: var(--secondary-accent);
+            color: var(--accent-blue);
         }
-        /* Home Page */
-        .page-home .section-title {
-            color: var(--text-color);
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .page-home .case-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-        }
-        .page-home .case-box {
-            background-color: var(--bg-medium);
-            border-radius: var(--border-radius);
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            position: relative;
-        }
-        .page-home .case-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .page-home .case-box img {
-            max-width: 100%;
-            height: 90px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-        .page-home .case-box h3 {
-            font-size: 16px;
-            margin: 5px 0;
-            color: var(--text-color);
-        }
-        .page-home .case-price {
-            color: white;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            margin-top: auto;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #2b2b2b;
-            border-radius: 50%;
-            font-size: 12px;
-            padding: 8px;
-            border: 1px solid var(--accent-color);
-        }
-        .page-home .case-price span {
-            margin-left: 2px;
-            color: var(--accent-color);
-        }
-        /* Profile Page */
-        .page-profile .profile-card {
-            background-color: var(--bg-medium);
-            padding: 20px;
-            border-radius: var(--border-radius);
-            text-align: center;
-        }
-        .page-profile .profile-img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background-color: var(--bg-dark);
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 60px;
-        }
-        /* Modal */
+
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.8);
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
-            background-color: var(--bg-dark);
-            padding: 20px;
-            border: 1px solid var(--primary-color);
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            position: relative;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
         }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--bg-light);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .modal-close-button {
-            color: #aaa;
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--text-secondary);
             font-size: 30px;
-            font-weight: bold;
             cursor: pointer;
         }
-        .modal-items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 10px;
-            margin-top: 20px;
-            border-top: 1px solid var(--bg-light);
-            padding-top: 15px;
-        }
-        .modal-item {
-            background-color: var(--bg-medium);
-            padding: 8px;
-            border-radius: 5px;
+
+        .guarantee-text {
             text-align: center;
-            font-size: 12px;
+            color: var(--accent-green);
+            font-size: 14px;
+            margin: 15px 0;
+            font-style: italic;
         }
-        .modal-item img {
-            max-width: 60px;
-            height: auto;
-            border-radius: 3px;
+
+        @media (max-width: 480px) {
+            .wheel-items {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .wheel-item img {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
     <div class="container">
         <div class="header">
-            <div class="header-left">
-                <div class="header-icon"><i class="fas fa-search"></i></div>
-                <div class="header-icon"><i class="fas fa-wallet"></i></div>
-            </div>
-            <div class="header-balance">
-                <span id="balanceAmount">0.00</span>
-                <i class="fas fa-gem" style="color: #4dc2ff;"></i>
-                <button class="add-btn" id="addBalanceBtn">+</button>
-            </div>
-            <div class="header-right">
-                <div class="header-icon"><i class="fas fa-cog"></i></div>
+            <div class="balance">
+                <span class="balance-amount" id="balanceAmount">0.234</span>
+                <i class="fas fa-gem" style="color: var(--accent-gold);"></i>
+                <button class="add-balance" id="addBalanceBtn">+</button>
             </div>
         </div>
 
-        <div id="pages" class="content-pages">
-            <div id="homePage" class="main-content active page-home">
-                <div class="case-grid" id="caseGrid">
-                    </div>
-            </div>
+        <div class="main-title">Битва Кейсов</div>
 
-            <div id="profilePage" class="main-content page-profile">
-                <div class="profile-card">
-                    <div class="profile-img">T</div>
-                    <h3>@tegenik</h3>
-                    <p>Баланс: <span id="profileBalance">0.00</span> <i class="fas fa-gem" style="color: #4dc2ff;"></i></p>
-                    <button class="add-btn">Пополнить +</button>
-                    <hr>
-                    <h4>Ваш инвентарь</h4>
-                    <button>Продать всё</button>
-                    <div id="inventory">
-                        <p>Вы ещё не открывали кейсы</p>
-                    </div>
+        <div class="wheel-container">
+            <div class="wheel-title">Jade Lantern</div>
+            
+            <div class="wheel-items">
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/FF6B6B/fff?text=GL" alt="Genie Lamp">
+                    <div class="wheel-item-name">Genie Lamp</div>
+                    <div class="wheel-item-price">49.92</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/4ECDC4/fff?text=LP" alt="Love Potion">
+                    <div class="wheel-item-name">Love Potion</div>
+                    <div class="wheel-item-price">14.30</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/45B7D1/fff?text=TG" alt="Tama Gadget">
+                    <div class="wheel-item-name">Tama Gadget</div>
+                    <div class="wheel-item-price">2.86</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/96CEB4/fff?text=JL" alt="Jade Lantern">
+                    <div class="wheel-item-name">Jade Lantern</div>
+                    <div class="wheel-item-price">3.00</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/FECA57/fff?text=MW" alt="Mouthwash">
+                    <div class="wheel-item-name">Mouthwash</div>
+                    <div class="wheel-item-price">6.00</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/FF9FF3/fff?text=TW" alt="Twilight">
+                    <div class="wheel-item-name">Twilight</div>
+                    <div class="wheel-item-price">15.00</div>
                 </div>
             </div>
 
-            <div id="upgraderPage" class="main-content">
-                <h2>Модернизатор</h2>
-                <p>Здесь будет страница для улучшения предметов.</p>
+            <div class="guarantee-text">
+                Ваша модель подарка гарантирована, только фон случайный при выводе.
             </div>
+
+            <button class="open-button" onclick="openCase('jade')">
+                Открыть за <span class="price-tag">2.74 ⭐</span>
+            </button>
         </div>
 
-        <div class="footer-nav">
-            <div class="nav-item active" data-page="homePage">
-                <i class="fas fa-home"></i>
-                <span>Главная</span>
+        <div class="wheel-container">
+            <div class="wheel-title">Astral Sunstone</div>
+            
+            <div class="wheel-items">
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/FF6B6B/fff?text=LP" alt="Lo! Pop">
+                    <div class="wheel-item-name">Lo! Pop Andromeda</div>
+                    <div class="wheel-item-price">2.74</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/4ECDC4/fff?text=LS" alt="Lunar Snake">
+                    <div class="wheel-item-name">Lunar Snake Aurium</div>
+                    <div class="wheel-item-price">2.28</div>
+                </div>
+                <div class="wheel-item">
+                    <img src="https://via.placeholder.com/50/45B7D1/fff?text=BD" alt="B-Day Candle">
+                    <div class="wheel-item-name">B-Day Candle Festive</div>
+                    <div class="wheel-item-price">1.30</div>
+                </div>
             </div>
-            <div class="nav-item" data-page="profilePage">
-                <i class="fas fa-user-circle"></i>
-                <span>Профиль</span>
+
+            <button class="open-button" onclick="openCase('astral')">
+                Открыть за <span class="price-tag">0.27 ⭐</span>
+            </button>
+        </div>
+
+        <div class="cases-grid">
+            <div class="case-card" onclick="openCase('viking')">
+                <img src="https://via.placeholder.com/80/FF6B6B/fff?text=V" alt="Viking" class="case-image">
+                <div class="case-name">Viking Oscar</div>
+                <div class="case-price">3.00 ⭐</div>
             </div>
-            <div class="nav-item" data-page="upgraderPage">
-                <i class="fas fa-magic"></i>
-                <span>Модернизатор</span>
+            <div class="case-card" onclick="openCase('heroic')">
+                <img src="https://via.placeholder.com/80/4ECDC4/fff?text=H" alt="Heroic" class="case-image">
+                <div class="case-name">Hard Heroic</div>
+                <div class="case-price">6.00 ⭐</div>
+            </div>
+            <div class="case-card" onclick="openCase('sunstone')">
+                <img src="https://via.placeholder.com/80/45B7D1/fff?text=S" alt="Sunstone" class="case-image">
+                <div class="case-name">Astral Sunstone</div>
+                <div class="case-price">15.00 ⭐</div>
+            </div>
+            <div class="case-card" onclick="openCase('lantern')">
+                <img src="https://via.placeholder.com/80/96CEB4/fff?text=L" alt="Lantern" class="case-image">
+                <div class="case-name">Jade Lantern</div>
+                <div class="case-price">50.00 ⭐</div>
             </div>
         </div>
     </div>
 
-    <div id="caseModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 id="modalCaseName">Название Кейса</h2>
-                <span class="modal-close-button">&times;</span>
-            </div>
-            <div id="modal-details">
-                <p id="modalCaseDescription"></p>
-                <div id="modalCaseItems" class="modal-items-grid"></div>
-            </div>
-            <button id="modalOpenButton">Открыть кейс</button>
+    <div class="footer-nav">
+        <div class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Главная</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-gift"></i>
+            <span>Кейсы</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-users"></i>
+            <span>Пригласить</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>Рейтинг</span>
+        </div>
+        <div class="nav-item">
+            <i class="fas fa-bars"></i>
+            <span>Меню</span>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let currentBalance = 0.234;
+
+        function updateBalance() {
+            document.getElementById('balanceAmount').textContent = currentBalance.toFixed(3);
+        }
+
+        function openCase(caseType) {
+            const casePrices = {
+                'jade': 2.74,
+                'astral': 0.27,
+                'viking': 3.00,
+                'heroic': 6.00,
+                'sunstone': 15.00,
+                'lantern': 50.00
+            };
+
+            const price = casePrices[caseType];
+            
+            if (currentBalance >= price) {
+                currentBalance -= price;
+                updateBalance();
+                
+                // Здесь будет отправка данных в бота
+                if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                    Telegram.WebApp.sendData(JSON.stringify({
+                        type: 'openCase',
+                        caseType: caseType,
+                        price: price
+                    }));
+                }
+                
+                alert(`🎉 Кейс открыт! Списано: ${price} ⭐`);
+            } else {
+                alert('❌ Недостаточно звёзд! Пополните баланс.');
+            }
+        }
+
+        document.getElementById('addBalanceBtn').addEventListener('click', function() {
+            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+                Telegram.WebApp.showAlert('Для пополнения баланса используйте бота');
+            } else {
+                alert('Для пополнения баланса используйте Telegram бота');
+            }
+        });
+
+        // Инициализация
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+            Telegram.WebApp.ready();
+            Telegram.WebApp.expand();
+        }
+
+        updateBalance();
+    </script>
 </body>
 </html>
