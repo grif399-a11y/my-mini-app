@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NFT Кейсы</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --bg-item: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --accent-gold: #FFD700;
+            --accent-blue: #007AFF;
+            --accent-green: #00ff88;
+            --accent-red: #FF6B6B;
+            --accent-purple: #9370DB;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,11 +28,16 @@
         }
 
         body {
-            background: #000000;
-            color: #ffffff;
+            background: var(--bg-dark);
+            color: var(--text-primary);
             min-height: 100vh;
             padding: 16px;
             padding-bottom: 80px;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
         }
 
         .header {
@@ -26,32 +45,44 @@
             justify-content: space-between;
             align-items: center;
             padding: 12px 16px;
-            background: #1a1a1a;
+            background: var(--bg-card);
             border-radius: 12px;
             margin-bottom: 20px;
         }
 
         .balance {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             font-size: 18px;
             font-weight: 600;
-            color: #FFD700;
+        }
+
+        .balance-amount {
+            color: var(--accent-gold);
         }
 
         .add-balance {
-            background: #007AFF;
+            background: var(--accent-blue);
             color: white;
             border: none;
             padding: 8px 16px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .add-balance:hover {
+            background: #0056b3;
         }
 
         .section-title {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 700;
             margin: 20px 0;
             text-align: center;
+            color: var(--accent-gold);
         }
 
         .cases-grid {
@@ -62,16 +93,19 @@
         }
 
         .case-card {
-            background: #1a1a1a;
+            background: var(--bg-card);
             border-radius: 12px;
             padding: 15px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
         }
 
         .case-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            border-color: var(--accent-purple);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .case-image {
@@ -79,22 +113,24 @@
             height: 60px;
             object-fit: contain;
             margin: 0 auto 10px;
+            border-radius: 8px;
         }
 
         .case-name {
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 8px;
+            color: var(--text-primary);
         }
 
         .case-price {
-            color: #FFD700;
+            color: var(--accent-gold);
             font-weight: 700;
             font-size: 16px;
         }
 
         .inventory {
-            background: #1a1a1a;
+            background: var(--bg-card);
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
@@ -105,6 +141,7 @@
             font-weight: 600;
             margin-bottom: 15px;
             text-align: center;
+            color: var(--accent-blue);
         }
 
         .inventory-items {
@@ -114,31 +151,43 @@
         }
 
         .inventory-item {
-            background: #2a2a2a;
-            padding: 10px;
+            background: var(--bg-item);
+            padding: 12px;
             border-radius: 8px;
             text-align: center;
+        }
+
+        .item-image {
+            font-size: 32px;
+            margin-bottom: 8px;
         }
 
         .item-name {
             font-size: 12px;
             margin-bottom: 5px;
+            color: var(--text-primary);
         }
 
         .item-value {
-            color: #FFD700;
+            color: var(--accent-gold);
             font-size: 11px;
+            font-weight: 600;
         }
 
         .sell-btn {
-            background: #FF6B6B;
+            background: var(--accent-red);
             color: white;
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 11px;
             cursor: pointer;
-            margin-top: 5px;
+            margin-top: 8px;
+            transition: background 0.3s;
+        }
+
+        .sell-btn:hover {
+            background: #d44;
         }
 
         .modal {
@@ -155,26 +204,40 @@
         }
 
         .modal-content {
-            background: #1a1a1a;
+            background: var(--bg-card);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
             max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
         }
 
         .won-item {
             margin: 20px 0;
         }
 
-        .won-item img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 10px;
+        .won-item-image {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+
+        .won-item-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .won-item-value {
+            color: var(--accent-gold);
+            font-size: 16px;
+            font-weight: 600;
         }
 
         .modal-close {
-            background: #007AFF;
+            background: var(--accent-blue);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -182,63 +245,99 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .modal-close:hover {
+            background: #0056b3;
+        }
+
+        .empty-inventory {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .inventory-items {
+                grid-template-columns: 1fr;
+            }
+            
+            .case-image {
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="balance" id="balanceAmount">0 ⭐</div>
-        <button class="add-balance" onclick="topUpBalance()">Пополнить</button>
-    </div>
-
-    <div class="section-title">🎰 NFT Кейсы</div>
-
-    <div class="cases-grid">
-        <div class="case-card" onclick="openCase('common', 10)">
-            <div class="case-name">Обычный кейс</div>
-            <div class="case-price">10 ⭐</div>
-        </div>
-        
-        <div class="case-card" onclick="openCase('rare', 25)">
-            <div class="case-name">Редкий кейс</div>
-            <div class="case-price">25 ⭐</div>
-        </div>
-        
-        <div class="case-card" onclick="openCase('epic', 50)">
-            <div class="case-name">Эпический кейс</div>
-            <div class="case-price">50 ⭐</div>
-        </div>
-        
-        <div class="case-card" onclick="openCase('legendary', 100)">
-            <div class="case-name">Легендарный кейс</div>
-            <div class="case-price">100 ⭐</div>
-        </div>
-    </div>
-
-    <div class="inventory">
-        <div class="inventory-title">🎁 Мой инвентарь</div>
-        <div class="inventory-items" id="inventoryItems">
-            <!-- Инвентарь будет здесь -->
-        </div>
-    </div>
-
-    <!-- Модальное окно выигрыша -->
-    <div class="modal" id="winModal">
-        <div class="modal-content">
-            <h2>🎉 ПОЗДРАВЛЯЕМ!</h2>
-            <div class="won-item">
-                <img id="wonItemImage" src="">
-                <h3 id="wonItemName"></h3>
-                <p id="wonItemValue"></p>
+    <div class="container">
+        <div class="header">
+            <div class="balance">
+                <span class="balance-amount" id="balanceAmount">0</span>
+                <span>⭐</span>
             </div>
-            <button class="modal-close" onclick="closeModal()">OK</button>
+            <button class="add-balance" onclick="topUpBalance()">
+                <i class="fas fa-plus"></i> Пополнить
+            </button>
+        </div>
+
+        <div class="section-title">🎰 NFT Кейсы</div>
+
+        <div class="cases-grid">
+            <div class="case-card" onclick="openCase('common', 10)">
+                <div class="case-image">🎁</div>
+                <div class="case-name">Обычный кейс</div>
+                <div class="case-price">10 ⭐</div>
+            </div>
+            
+            <div class="case-card" onclick="openCase('rare', 25)">
+                <div class="case-image">💎</div>
+                <div class="case-name">Редкий кейс</div>
+                <div class="case-price">25 ⭐</div>
+            </div>
+            
+            <div class="case-card" onclick="openCase('epic', 50)">
+                <div class="case-image">🔥</div>
+                <div class="case-name">Эпический кейс</div>
+                <div class="case-price">50 ⭐</div>
+            </div>
+            
+            <div class="case-card" onclick="openCase('legendary', 100)">
+                <div class="case-image">🌟</div>
+                <div class="case-name">Легендарный кейс</div>
+                <div class="case-price">100 ⭐</div>
+            </div>
+        </div>
+
+        <div class="inventory">
+            <div class="inventory-title">🎁 Мой инвентарь</div>
+            <div class="inventory-items" id="inventoryItems">
+                <div class="empty-inventory">
+                    <i class="fas fa-box-open" style="font-size: 32px; margin-bottom: 10px;"></i>
+                    <p>Инвентарь пуст</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="winModal">
+            <div class="modal-content">
+                <h2 style="color: var(--accent-gold); margin-bottom: 20px;">🎉 ПОЗДРАВЛЯЕМ!</h2>
+                <div class="won-item">
+                    <div class="won-item-image" id="wonItemImage"></div>
+                    <h3 class="won-item-name" id="wonItemName"></h3>
+                    <div class="won-item-value" id="wonItemValue"></div>
+                </div>
+                <button class="modal-close" onclick="closeModal()">OK</button>
+            </div>
         </div>
     </div>
 
     <script>
-        let balance = 0;
-        let inventory = [];
-
         // NFT подарки для каждого типа кейса
         const nftItems = {
             common: [
@@ -263,8 +362,11 @@
             ]
         };
 
+        let balance = 0;
+        let inventory = [];
+
         function updateBalance() {
-            document.getElementById('balanceAmount').textContent = balance + " ⭐";
+            document.getElementById('balanceAmount').textContent = balance;
         }
 
         function updateInventory() {
@@ -272,7 +374,12 @@
             container.innerHTML = '';
 
             if (inventory.length === 0) {
-                container.innerHTML = '<div style="text-align: center; color: #888;">Инвентарь пуст</div>';
+                container.innerHTML = `
+                    <div class="empty-inventory">
+                        <i class="fas fa-box-open" style="font-size: 32px; margin-bottom: 10px;"></i>
+                        <p>Инвентарь пуст</p>
+                    </div>
+                `;
                 return;
             }
 
@@ -280,10 +387,12 @@
                 const itemElement = document.createElement('div');
                 itemElement.className = 'inventory-item';
                 itemElement.innerHTML = `
-                    <div style="font-size: 24px;">${item.image}</div>
+                    <div class="item-image">${item.image}</div>
                     <div class="item-name">${item.name}</div>
                     <div class="item-value">${item.value} ⭐</div>
-                    <button class="sell-btn" onclick="sellItem(${index})">Продать</button>
+                    <button class="sell-btn" onclick="sellItem(${index})">
+                        <i class="fas fa-coins"></i> Продать
+                    </button>
                 `;
                 container.appendChild(itemElement);
             });
@@ -346,8 +455,14 @@
                 Telegram.WebApp.sendData(JSON.stringify({
                     type: 'topUpBalance'
                 }));
+                
+                // Закрываем веб-приложение чтобы пользователь увидел меню бота
+                setTimeout(() => {
+                    Telegram.WebApp.close();
+                }, 500);
+                
             } else {
-                alert('Откройте приложение через Telegram бота для пополнения');
+                alert('Для пополнения баланса откройте приложение через Telegram бота');
             }
         }
 
@@ -355,7 +470,7 @@
             document.getElementById('winModal').style.display = 'none';
         }
 
-        // Инициализация
+        // Инициализация Telegram WebApp
         if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
             Telegram.WebApp.ready();
             Telegram.WebApp.expand();
@@ -380,11 +495,12 @@
                         updateInventory();
                     }
                 } catch (e) {
-                    console.error('Error:', e);
+                    console.error('Error parsing message:', e);
                 }
             });
         }
 
+        // Инициализация
         updateBalance();
         updateInventory();
     </script>
