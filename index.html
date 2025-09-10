@@ -4,42 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Битва Кейсов</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #1a1a1a;
-            --bg-item: #2a2a2a;
-            --text-primary: #ffffff;
-            --text-secondary: #cccccc;
-            --accent-gold: #FFD700;
-            --accent-blue: #4dc2ff;
-            --accent-green: #00ff88;
-            --accent-purple: #9370DB;
-            --accent-red: #FF6B6B;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-primary);
+            background: #000000;
+            color: #ffffff;
             min-height: 100vh;
             padding: 0;
         }
 
         .container {
             max-width: 100%;
-            padding: 10px;
+            padding: 16px;
             padding-bottom: 80px;
         }
 
@@ -47,142 +30,261 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
-            border-radius: 15px;
-            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-id {
+            font-size: 12px;
+            color: #888;
         }
 
         .balance {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: var(--bg-item);
-            padding: 10px 15px;
-            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #FFD700;
         }
 
-        .balance-amount {
-            color: var(--accent-gold);
+        .main-content {
+            display: none;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        .section-title {
+            font-size: 20px;
             font-weight: 700;
-            font-size: 18px;
-        }
-
-        .buy-stars-btn {
-            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
-            color: black;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .buy-stars-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .main-title {
+            margin: 20px 0 16px 0;
             text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin: 20px 0;
-            color: var(--accent-gold);
         }
 
-        .case-container {
-            background: var(--bg-card);
-            border-radius: 20px;
+        .profile-card {
+            background: #1a1a1a;
+            border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
             text-align: center;
         }
 
-        .case-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--accent-blue);
-            text-transform: uppercase;
-        }
-
-        .case-price {
-            background: var(--bg-item);
-            padding: 10px 20px;
-            border-radius: 20px;
+        .username {
             font-size: 18px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin: 15px auto;
-            display: inline-block;
+            font-weight: 600;
+            margin: 10px 0;
         }
 
-        .case-image {
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-            margin: 15px auto;
-            border-radius: 15px;
-            background: var(--bg-item);
-            padding: 10px;
-        }
-
-        .case-description {
-            color: var(--text-secondary);
-            font-size: 14px;
-            margin: 15px 0;
-            line-height: 1.4;
-        }
-
-        .wheel-items {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+        .inventory-section {
             margin: 20px 0;
         }
 
-        .wheel-item {
-            background: var(--bg-item);
+        .inventory-empty {
+            text-align: center;
+            color: #888;
+            margin: 20px 0;
+        }
+
+        .open-cases-btn {
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        .referral-section {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .referral-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .referral-balance {
+            background: #2a2a2a;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .balance-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .withdraw-btn {
+            background: #007AFF;
+            color: white;
+            border: none;
             padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .referral-info {
+            font-size: 12px;
+            color: #888;
+            line-height: 1.4;
+            margin-top: 15px;
+        }
+
+        .rating-section {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .rating-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .rating-tab {
+            flex: 1;
+            background: #2a2a2a;
+            border: none;
+            color: #fff;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .rating-tab.active {
+            background: #007AFF;
+        }
+
+        .rating-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .rating-table th {
+            text-align: left;
+            padding: 10px;
+            font-size: 12px;
+            color: #888;
+            border-bottom: 1px solid #333;
+        }
+
+        .rating-table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #333;
+        }
+
+        .user-place {
+            font-weight: 600;
+            color: #FFD700;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .case-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .case-image {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            margin: 0 auto 10px;
+        }
+
+        .case-name {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .case-price {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .risk-cases {
+            background: #1a1a1a;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .risk-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #FF6B6B;
+        }
+
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .risk-item {
+            background: #2a2a2a;
+            padding: 15px;
             border-radius: 12px;
             text-align: center;
         }
 
-        .wheel-item img {
-            width: 40px;
-            height: 40px;
-            object-fit: contain;
-            margin-bottom: 8px;
-        }
-
-        .wheel-item-name {
-            font-size: 11px;
-            margin-bottom: 5px;
-            color: var(--text-secondary);
-        }
-
-        .wheel-item-price {
-            color: var(--accent-gold);
-            font-weight: 600;
-            font-size: 12px;
-        }
-
-        .open-button {
-            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
-            color: black;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            font-size: 18px;
+        .risk-price {
+            color: #FFD700;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 15px;
-        }
-
-        .open-button:hover {
-            transform: scale(1.05);
+            font-size: 16px;
+            margin-top: 8px;
         }
 
         .footer-nav {
@@ -190,30 +292,29 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--bg-card);
-            padding: 15px;
+            background: #1a1a1a;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-around;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+            border-top: 1px solid #333;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: var(--text-secondary);
-            font-size: 12px;
+            color: #888;
+            font-size: 11px;
             cursor: pointer;
         }
 
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 5px;
+        .nav-item.active {
+            color: #007AFF;
         }
 
-        .nav-item.active {
-            color: var(--accent-blue);
+        .nav-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
         }
 
         .modal {
@@ -230,348 +331,260 @@
         }
 
         .modal-content {
-            background: var(--bg-card);
-            padding: 30px;
+            background: #1a1a1a;
             border-radius: 20px;
-            text-align: center;
+            padding: 30px;
             max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
         }
 
         .modal-close {
             position: absolute;
             top: 20px;
             right: 20px;
-            color: var(--text-secondary);
+            color: #888;
             font-size: 30px;
             cursor: pointer;
-        }
-
-        .won-item {
-            margin: 20px 0;
-        }
-
-        .won-item img {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin-bottom: 10px;
-        }
-
-        .buy-modal-content {
-            background: var(--bg-card);
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 90%;
-        }
-
-        .stars-packages {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-
-        .stars-package {
-            background: var(--bg-item);
-            padding: 20px;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .stars-package:hover {
-            border-color: var(--accent-gold);
-            transform: scale(1.05);
-        }
-
-        .stars-amount {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin-bottom: 5px;
-        }
-
-        .stars-price {
-            font-size: 16px;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 480px) {
-            .wheel-items {
-                grid-template-columns: repeat(3, 1fr);
-            }
-            
-            .case-image {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .wheel-item img {
-                width: 35px;
-                height: 35px;
-            }
-
-            .stars-packages {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Header -->
         <div class="header">
-            <div class="balance">
-                <span class="balance-amount" id="balanceAmount">0</span>
-                <i class="fas fa-gem" style="color: var(--accent-gold);"></i>
+            <div class="user-info">
+                <div class="user-avatar">T</div>
+                <div class="user-details">
+                    <div class="user-id">UQBx6...R-rl</div>
+                    <div class="balance" id="balanceAmount">0.234</div>
+                </div>
             </div>
-            <button class="buy-stars-btn" onclick="openBuyModal()">
-                Купить звёзды ⭐
-            </button>
         </div>
 
-        <div class="main-title">Битва Кейсов</div>
-
-        <!-- Кейс 1 -->
-        <div class="case-container">
-            <div class="case-title">Jade Lantern</div>
-            <div class="case-price">Открыть за 2.74 ⭐</div>
-            <img src="https://via.placeholder.com/120/96CEB4/fff?text=JADE" alt="Jade Lantern" class="case-image">
-            <div class="case-description">
-                Ваша модель подарка гарантирована, только фон случайный при выводе.
+        <!-- Profile Page -->
+        <div id="profilePage" class="main-content active">
+            <div class="profile-card">
+                <div class="user-avatar" style="margin: 0 auto; width: 60px; height: 60px; font-size: 24px;">T</div>
+                <div class="username">@tegenik</div>
+                <div class="balance">Баланс: 0.234 ⭐</div>
             </div>
 
-            <div class="wheel-items">
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/FF6B6B/fff?text=GL" alt="Genie Lamp">
-                    <div class="wheel-item-name">Genie Lamp</div>
-                    <div class="wheel-item-price">49.92</div>
-                </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/4ECDC4/fff?text=LP" alt="Love Potion">
-                    <div class="wheel-item-name">Love Potion</div>
-                    <div class="wheel-item-price">14.30</div>
-                </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/45B7D1/fff?text=TG" alt="Tama Gadget">
-                    <div class="wheel-item-name">Tama Gadget</div>
-                    <div class="wheel-item-price">2.86</div>
-                </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/96CEB4/fff?text=JL" alt="Jade Lantern">
-                    <div class="wheel-item-name">Jade Lantern</div>
-                    <div class="wheel-item-price">3.00</div>
-                </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/FECA57/fff?text=MW" alt="Mouthwash">
-                    <div class="wheel-item-name">Mouthwash</div>
-                    <div class="wheel-item-price">6.00</div>
-                </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/FF9FF3/fff?text=TW" alt="Twilight">
-                    <div class="wheel-item-name">Twilight</div>
-                    <div class="wheel-item-price">15.00</div>
-                </div>
+            <div class="inventory-section">
+                <div class="section-title">Ваш инвентарь</div>
+                <div class="inventory-empty">Вы ещё не открывали кейсы</div>
             </div>
 
-            <button class="open-button" onclick="openCase('jade', 2.74)">
-                ОТКРЫТЬ КЕЙС
-            </button>
+            <button class="open-cases-btn" onclick="switchPage('casesPage')">Открыть кейсы</button>
+
+            <div class="referral-section">
+                <div class="referral-title">Приглашайте друзей и зарабатывайте TON с кейсов</div>
+                <div class="referral-balance">
+                    <div class="balance-amount">0.00</div>
+                    <div style="text-align: center; color: #888; margin-bottom: 10px;">Баланс рефералов</div>
+                    <button class="withdraw-btn">Вывести</button>
+                </div>
+                <div class="referral-info">
+                    Выплаты по партнерской программе доступны через 7 дней после начала программы, а затем каждые 7 дней после последней выплаты. Выплата производиться на ваш баланс в приложении или TON кошелек.
+                </div>
+            </div>
         </div>
 
-        <!-- Кейс 2 -->
-        <div class="case-container">
-            <div class="case-title">Astral Collection</div>
-            <div class="case-price">Открыть за 0.27 ⭐</div>
-            <img src="https://via.placeholder.com/120/45B7D1/fff?text=ASTRAL" alt="Astral" class="case-image">
-            <div class="case-description">
-                Коллекция астральных предметов с уникальным дизайном
+        <!-- Rating Page -->
+        <div id="ratingPage" class="main-content">
+            <div class="section-title">РЕЙТИНГ</div>
+            
+            <div class="rating-tabs">
+                <button class="rating-tab active">За всё время</button>
+                <button class="rating-tab">За неделю</button>
+                <button class="rating-tab">За месяц</button>
             </div>
 
-            <div class="wheel-items">
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/FF6B6B/fff?text=LP" alt="Lo! Pop">
-                    <div class="wheel-item-name">Lo! Pop Andromeda</div>
-                    <div class="wheel-item-price">2.74</div>
+            <table class="rating-table">
+                <thead>
+                    <tr>
+                        <th>Пользователь</th>
+                        <th>Заработано</th>
+                        <th>Место</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>getrich</td>
+                        <td>Открыто 5561 кейсов</td>
+                        <td class="user-place">150206.83 #1</td>
+                    </tr>
+                    <tr>
+                        <td>Gro_oza</td>
+                        <td>Открыто 9293 кейсов</td>
+                        <td class="user-place">13335.868 #2</td>
+                    </tr>
+                    <tr>
+                        <td>guest_6781414...</td>
+                        <td>Открыто 2759 кейсов</td>
+                        <td class="user-place">12188.906 #3</td>
+                    </tr>
+                    <tr>
+                        <td>Vladyslav Pas</td>
+                        <td>Открыто 1565 кейсов</td>
+                        <td class="user-place">7457.52 #4</td>
+                    </tr>
+                    <tr>
+                        <td>kamzhad</td>
+                        <td>Открыто 845 кейсов</td>
+                        <td class="user-place">7339.074 #5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Cases Page -->
+        <div id="casesPage" class="main-content">
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-name">Only Swiss</div>
+                    <div class="case-price">300.00 ⭐</div>
                 </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/4ECDC4/fff?text=LS" alt="Lunar Snake">
-                    <div class="wheel-item-name">Lunar Snake Aurium</div>
-                    <div class="wheel-item-price">2.28</div>
+                <div class="case-card">
+                    <div class="case-name">Only Lost Bag</div>
+                    <div class="case-price">1000.00 ⭐</div>
                 </div>
-                <div class="wheel-item">
-                    <img src="https://via.placeholder.com/40/45B7D1/fff?text=BD" alt="B-Day Candle">
-                    <div class="wheel-item-name">B-Day Candle Festive</div>
-                    <div class="wheel-item-price">1.30</div>
+                <div class="case-card">
+                    <div class="case-name">Only Durov's Cap</div>
+                    <div class="case-price">15.00 ⭐</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Only Pepe</div>
+                    <div class="case-price">45.00 ⭐</div>
                 </div>
             </div>
 
-            <button class="open-button" onclick="openCase('astral', 0.27)">
-                ОТКРЫТЬ КЕЙС
-            </button>
+            <div class="risk-cases">
+                <div class="risk-title">Gummy Pepe</div>
+                <div class="risk-title">РИСКОВАННЫЕ КЕЙСЫ</div>
+                
+                <div class="risk-grid">
+                    <div class="risk-item">
+                        <div class="case-name">[Risk] Watch Copper</div>
+                        <div class="risk-price">0.50 ⭐</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="case-name">[Risk] Hard Helmet</div>
+                        <div class="risk-price">3.00 ⭐</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="case-name">[Risk] Iron Cap</div>
+                        <div class="risk-price">10.00 ⭐</div>
+                    </div>
+                    <div class="risk-item">
+                        <div class="case-name">[Risk] Marble Pepe</div>
+                        <div class="risk-price">40.00 ⭐</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu Page -->
+        <div id="menuPage" class="main-content">
+            <div class="profile-card">
+                <div class="user-avatar" style="margin: 0 auto; width: 60px; height: 60px; font-size: 24px;">T</div>
+                <div class="username">tegenik</div>
+                <div class="balance">Баланс UQBx6...R-rl</div>
+                <div class="balance">0.234</div>
+            </div>
+
+            <div class="section-title">#7105204213</div>
+
+            <button class="open-cases-btn">Пополнить</button>
+
+            <div class="cases-grid">
+                <div class="case-card">
+                    <div class="case-name">Вам профиль</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">БИТВЫ</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">МОДЕРНИЗАТОР</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Колесо скоро</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Инвентарь</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Партнёрская программа</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Настройки</div>
+                </div>
+                <div class="case-card">
+                    <div class="case-name">Условия использования</div>
+                </div>
+            </div>
+
+            <button class="open-cases-btn">Подключить TON кошелёк</button>
         </div>
     </div>
 
+    <!-- Footer Navigation -->
     <div class="footer-nav">
-        <div class="nav-item active">
-            <i class="fas fa-home"></i>
-            <span>Главная</span>
+        <div class="nav-item" onclick="switchPage('casesPage')">
+            <div class="nav-icon">🎰</div>
+            <span>Битва кейсов</span>
         </div>
-        <div class="nav-item">
-            <i class="fas fa-gift"></i>
-            <span>Кейсы</span>
-        </div>
-        <div class="nav-item">
-            <i class="fas fa-users"></i>
+        <div class="nav-item" onclick="switchPage('invitePage')">
+            <div class="nav-icon">👥</div>
             <span>Пригласить</span>
         </div>
-        <div class="nav-item">
-            <i class="fas fa-chart-bar"></i>
+        <div class="nav-item" onclick="switchPage('ratingPage')">
+            <div class="nav-icon">📊</div>
             <span>Рейтинг</span>
         </div>
-        <div class="nav-item">
-            <i class="fas fa-bars"></i>
+        <div class="nav-item active" onclick="switchPage('menuPage')">
+            <div class="nav-icon">☰</div>
             <span>Меню</span>
         </div>
     </div>
 
-    <!-- Модальное окно выигрыша -->
-    <div class="modal" id="winModal">
-        <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('winModal')">×</span>
-            <h2>🎉 ПОЗДРАВЛЯЕМ!</h2>
-            <div class="won-item">
-                <img src="" alt="Выигрыш" id="wonItemImage">
-                <h3 id="wonItemName"></h3>
-                <p id="wonItemPrice"></p>
-            </div>
-            <button class="open-button" onclick="closeModal('winModal')">OK</button>
-        </div>
-    </div>
-
-    <!-- Модальное окно покупки звёзд -->
-    <div class="modal" id="buyModal">
-        <div class="buy-modal-content">
-            <span class="modal-close" onclick="closeModal('buyModal')">×</span>
-            <h2>💎 Купить звёзды</h2>
-            <p>Выберите пакет звёзд для пополнения баланса</p>
-            
-            <div class="stars-packages">
-                <div class="stars-package" onclick="buyStars(10)">
-                    <div class="stars-amount">10 ⭐</div>
-                    <div class="stars-price">$1.00</div>
-                </div>
-                <div class="stars-package" onclick="buyStars(50)">
-                    <div class="stars-amount">50 ⭐</div>
-                    <div class="stars-price">$4.50</div>
-                </div>
-                <div class="stars-package" onclick="buyStars(100)">
-                    <div class="stars-amount">100 ⭐</div>
-                    <div class="stars-price">$8.00</div>
-                </div>
-                <div class="stars-package" onclick="buyStars(500)">
-                    <div class="stars-amount">500 ⭐</div>
-                    <div class="stars-price">$35.00</div>
-                </div>
-            </div>
-            
-            <button class="open-button" onclick="closeModal('buyModal')">Назад</button>
-        </div>
-    </div>
-
     <script>
-        let currentBalance = 0;
+        let currentBalance = 0.234;
 
         function updateBalance() {
             document.getElementById('balanceAmount').textContent = currentBalance.toFixed(3);
         }
 
-        function openCase(caseType, price) {
-            if (currentBalance >= price) {
-                currentBalance -= price;
-                updateBalance();
-                
-                const items = {
-                    'jade': [
-                        {name: 'Genie Lamp', price: 49.92, image: 'https://via.placeholder.com/80/FF6B6B/fff?text=GL'},
-                        {name: 'Love Potion', price: 14.30, image: 'https://via.placeholder.com/80/4ECDC4/fff?text=LP'},
-                        {name: 'Tama Gadget', price: 2.86, image: 'https://via.placeholder.com/80/45B7D1/fff?text=TG'},
-                        {name: 'Jade Lantern', price: 3.00, image: 'https://via.placeholder.com/80/96CEB4/fff?text=JL'},
-                        {name: 'Mouthwash', price: 6.00, image: 'https://via.placeholder.com/80/FECA57/fff?text=MW'},
-                        {name: 'Twilight', price: 15.00, image: 'https://via.placeholder.com/80/FF9FF3/fff?text=TW'}
-                    ],
-                    'astral': [
-                        {name: 'Lo! Pop Andromeda', price: 2.74, image: 'https://via.placeholder.com/80/FF6B6B/fff?text=LP'},
-                        {name: 'Lunar Snake Aurium', price: 2.28, image: 'https://via.placeholder.com/80/4ECDC4/fff?text=LS'},
-                        {name: 'B-Day Candle Festive', price: 1.30, image: 'https://via.placeholder.com/80/45B7D1/fff?text=BD'}
-                    ]
-                };
-
-                const wonItem = items[caseType][Math.floor(Math.random() * items[caseType].length)];
-                
-                document.getElementById('wonItemImage').src = wonItem.image;
-                document.getElementById('wonItemName').textContent = wonItem.name;
-                document.getElementById('wonItemPrice').textContent = `Цена: ${wonItem.price} ⭐`;
-                document.getElementById('winModal').style.display = 'flex';
-                
-                if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-                    Telegram.WebApp.sendData(JSON.stringify({
-                        type: 'openCase',
-                        caseType: caseType,
-                        price: price,
-                        wonItem: wonItem.name,
-                        itemValue: wonItem.price
-                    }));
+        function switchPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.main-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Find and activate current nav item
+            document.querySelectorAll('.nav-item').forEach(item => {
+                if (item.textContent.includes(
+                    pageId === 'casesPage' ? 'Битва' :
+                    pageId === 'invitePage' ? 'Пригласить' :
+                    pageId === 'ratingPage' ? 'Рейтинг' : 'Меню'
+                )) {
+                    item.classList.add('active');
                 }
-                
-            } else {
-                alert('❌ Недостаточно звёзд! Баланс: ' + currentBalance.toFixed(3) + ' ⭐');
-            }
+            });
         }
 
-        function openBuyModal() {
-            document.getElementById('buyModal').style.display = 'flex';
-        }
-
-        function buyStars(amount) {
-            if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-                Telegram.WebApp.sendData(JSON.stringify({
-                    type: 'buyStars',
-                    amount: amount
-                }));
-                closeModal('buyModal');
-            } else {
-                alert('Покупка звёзд доступна только через Telegram бота');
-            }
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Инициализация
+        // Initialize
         if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
             Telegram.WebApp.ready();
             Telegram.WebApp.expand();
-            
-            Telegram.WebApp.sendData(JSON.stringify({
-                type: 'getBalance'
-            }));
-        }
-
-        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-            Telegram.WebApp.onEvent('message', (message) => {
-                try {
-                    const data = JSON.parse(message);
-                    if (data.balance !== undefined) {
-                        currentBalance = data.balance;
-                        updateBalance();
-                    }
-                } catch (e) {
-                    console.error('Error parsing message:', e);
-                }
-            });
         }
 
         updateBalance();
