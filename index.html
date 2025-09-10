@@ -20,6 +20,7 @@
             --accent-blue: #4dc2ff;
             --accent-green: #00ff88;
             --accent-purple: #9370DB;
+            --accent-red: #FF6B6B;
         }
 
         * {
@@ -39,6 +40,7 @@
         .container {
             max-width: 100%;
             padding: 10px;
+            padding-bottom: 80px;
         }
 
         .header {
@@ -66,15 +68,19 @@
             font-size: 18px;
         }
 
-        .add-balance {
-            background: var(--accent-green);
+        .buy-stars-btn {
+            background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
             color: black;
             border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 18px;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-weight: 700;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .buy-stars-btn:hover {
+            transform: scale(1.05);
         }
 
         .main-title {
@@ -85,50 +91,73 @@
             color: var(--accent-gold);
         }
 
-        .wheel-container {
+        .case-container {
             background: var(--bg-card);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
+            text-align: center;
         }
 
-        .wheel-title {
-            text-align: center;
-            font-size: 20px;
+        .case-title {
+            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 15px;
             color: var(--accent-blue);
+            text-transform: uppercase;
+        }
+
+        .case-price {
+            background: var(--bg-item);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin: 15px auto;
+            display: inline-block;
+        }
+
+        .case-image {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin: 15px auto;
+            border-radius: 15px;
+            background: var(--bg-item);
+            padding: 10px;
+        }
+
+        .case-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin: 15px 0;
+            line-height: 1.4;
         }
 
         .wheel-items {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
 
         .wheel-item {
             background: var(--bg-item);
-            padding: 15px;
+            padding: 12px;
             border-radius: 12px;
             text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .wheel-item:hover {
-            border-color: var(--accent-gold);
-            transform: translateY(-2px);
         }
 
         .wheel-item img {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             object-fit: contain;
             margin-bottom: 8px;
         }
 
         .wheel-item-name {
-            font-size: 12px;
+            font-size: 11px;
             margin-bottom: 5px;
             color: var(--text-secondary);
         }
@@ -136,75 +165,24 @@
         .wheel-item-price {
             color: var(--accent-gold);
             font-weight: 600;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .open-button {
             background: linear-gradient(135deg, var(--accent-green) 0%, var(--accent-blue) 100%);
             color: black;
             border: none;
-            padding: 15px;
+            padding: 15px 30px;
             border-radius: 12px;
             font-size: 18px;
             font-weight: 700;
-            width: 100%;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 15px;
         }
 
         .open-button:hover {
-            transform: scale(1.02);
-        }
-
-        .price-tag {
-            background: var(--bg-item);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-weight: 600;
-            color: var(--accent-gold);
-            margin-top: 10px;
-            display: inline-block;
-        }
-
-        .cases-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .case-card {
-            background: var(--bg-card);
-            border-radius: 15px;
-            padding: 15px;
-            text-align: center;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .case-card:hover {
-            border-color: var(--accent-purple);
-            transform: translateY(-3px);
-        }
-
-        .case-image {
-            width: 80px;
-            height: 80px;
-            object-fit: contain;
-            margin: 0 auto 10px;
-        }
-
-        .case-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .case-price {
-            color: var(--accent-gold);
-            font-weight: 700;
-            font-size: 18px;
+            transform: scale(1.05);
         }
 
         .footer-nav {
@@ -227,11 +205,10 @@
             color: var(--text-secondary);
             font-size: 12px;
             cursor: pointer;
-            transition: color 0.3s ease;
         }
 
         .nav-item i {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 5px;
         }
 
@@ -246,7 +223,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -256,9 +233,8 @@
             background: var(--bg-card);
             padding: 30px;
             border-radius: 20px;
+            text-align: center;
             max-width: 90%;
-            max-height: 90%;
-            overflow-y: auto;
         }
 
         .modal-close {
@@ -270,12 +246,56 @@
             cursor: pointer;
         }
 
-        .guarantee-text {
+        .won-item {
+            margin: 20px 0;
+        }
+
+        .won-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+
+        .buy-modal-content {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 20px;
             text-align: center;
-            color: var(--accent-green);
-            font-size: 14px;
-            margin: 15px 0;
-            font-style: italic;
+            max-width: 90%;
+        }
+
+        .stars-packages {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stars-package {
+            background: var(--bg-item);
+            padding: 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .stars-package:hover {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+        }
+
+        .stars-amount {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .stars-price {
+            font-size: 16px;
+            color: var(--text-secondary);
         }
 
         @media (max-width: 480px) {
@@ -283,13 +303,18 @@
                 grid-template-columns: repeat(3, 1fr);
             }
             
-            .cases-grid {
-                grid-template-columns: 1fr;
+            .case-image {
+                width: 100px;
+                height: 100px;
             }
             
             .wheel-item img {
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
+            }
+
+            .stars-packages {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -298,106 +323,93 @@
     <div class="container">
         <div class="header">
             <div class="balance">
-                <span class="balance-amount" id="balanceAmount">0.234</span>
+                <span class="balance-amount" id="balanceAmount">0</span>
                 <i class="fas fa-gem" style="color: var(--accent-gold);"></i>
-                <button class="add-balance" id="addBalanceBtn">+</button>
             </div>
+            <button class="buy-stars-btn" onclick="openBuyModal()">
+                Купить звёзды ⭐
+            </button>
         </div>
 
         <div class="main-title">Битва Кейсов</div>
 
-        <div class="wheel-container">
-            <div class="wheel-title">Jade Lantern</div>
-            
+        <!-- Кейс 1 -->
+        <div class="case-container">
+            <div class="case-title">Jade Lantern</div>
+            <div class="case-price">Открыть за 2.74 ⭐</div>
+            <img src="https://via.placeholder.com/120/96CEB4/fff?text=JADE" alt="Jade Lantern" class="case-image">
+            <div class="case-description">
+                Ваша модель подарка гарантирована, только фон случайный при выводе.
+            </div>
+
             <div class="wheel-items">
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/FF6B6B/fff?text=GL" alt="Genie Lamp">
+                    <img src="https://via.placeholder.com/40/FF6B6B/fff?text=GL" alt="Genie Lamp">
                     <div class="wheel-item-name">Genie Lamp</div>
                     <div class="wheel-item-price">49.92</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/4ECDC4/fff?text=LP" alt="Love Potion">
+                    <img src="https://via.placeholder.com/40/4ECDC4/fff?text=LP" alt="Love Potion">
                     <div class="wheel-item-name">Love Potion</div>
                     <div class="wheel-item-price">14.30</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/45B7D1/fff?text=TG" alt="Tama Gadget">
+                    <img src="https://via.placeholder.com/40/45B7D1/fff?text=TG" alt="Tama Gadget">
                     <div class="wheel-item-name">Tama Gadget</div>
                     <div class="wheel-item-price">2.86</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/96CEB4/fff?text=JL" alt="Jade Lantern">
+                    <img src="https://via.placeholder.com/40/96CEB4/fff?text=JL" alt="Jade Lantern">
                     <div class="wheel-item-name">Jade Lantern</div>
                     <div class="wheel-item-price">3.00</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/FECA57/fff?text=MW" alt="Mouthwash">
+                    <img src="https://via.placeholder.com/40/FECA57/fff?text=MW" alt="Mouthwash">
                     <div class="wheel-item-name">Mouthwash</div>
                     <div class="wheel-item-price">6.00</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/FF9FF3/fff?text=TW" alt="Twilight">
+                    <img src="https://via.placeholder.com/40/FF9FF3/fff?text=TW" alt="Twilight">
                     <div class="wheel-item-name">Twilight</div>
                     <div class="wheel-item-price">15.00</div>
                 </div>
             </div>
 
-            <div class="guarantee-text">
-                Ваша модель подарка гарантирована, только фон случайный при выводе.
-            </div>
-
-            <button class="open-button" onclick="openCase('jade')">
-                Открыть за <span class="price-tag">2.74 ⭐</span>
+            <button class="open-button" onclick="openCase('jade', 2.74)">
+                ОТКРЫТЬ КЕЙС
             </button>
         </div>
 
-        <div class="wheel-container">
-            <div class="wheel-title">Astral Sunstone</div>
-            
+        <!-- Кейс 2 -->
+        <div class="case-container">
+            <div class="case-title">Astral Collection</div>
+            <div class="case-price">Открыть за 0.27 ⭐</div>
+            <img src="https://via.placeholder.com/120/45B7D1/fff?text=ASTRAL" alt="Astral" class="case-image">
+            <div class="case-description">
+                Коллекция астральных предметов с уникальным дизайном
+            </div>
+
             <div class="wheel-items">
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/FF6B6B/fff?text=LP" alt="Lo! Pop">
+                    <img src="https://via.placeholder.com/40/FF6B6B/fff?text=LP" alt="Lo! Pop">
                     <div class="wheel-item-name">Lo! Pop Andromeda</div>
                     <div class="wheel-item-price">2.74</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/4ECDC4/fff?text=LS" alt="Lunar Snake">
+                    <img src="https://via.placeholder.com/40/4ECDC4/fff?text=LS" alt="Lunar Snake">
                     <div class="wheel-item-name">Lunar Snake Aurium</div>
                     <div class="wheel-item-price">2.28</div>
                 </div>
                 <div class="wheel-item">
-                    <img src="https://via.placeholder.com/50/45B7D1/fff?text=BD" alt="B-Day Candle">
+                    <img src="https://via.placeholder.com/40/45B7D1/fff?text=BD" alt="B-Day Candle">
                     <div class="wheel-item-name">B-Day Candle Festive</div>
                     <div class="wheel-item-price">1.30</div>
                 </div>
             </div>
 
-            <button class="open-button" onclick="openCase('astral')">
-                Открыть за <span class="price-tag">0.27 ⭐</span>
+            <button class="open-button" onclick="openCase('astral', 0.27)">
+                ОТКРЫТЬ КЕЙС
             </button>
-        </div>
-
-        <div class="cases-grid">
-            <div class="case-card" onclick="openCase('viking')">
-                <img src="https://via.placeholder.com/80/FF6B6B/fff?text=V" alt="Viking" class="case-image">
-                <div class="case-name">Viking Oscar</div>
-                <div class="case-price">3.00 ⭐</div>
-            </div>
-            <div class="case-card" onclick="openCase('heroic')">
-                <img src="https://via.placeholder.com/80/4ECDC4/fff?text=H" alt="Heroic" class="case-image">
-                <div class="case-name">Hard Heroic</div>
-                <div class="case-price">6.00 ⭐</div>
-            </div>
-            <div class="case-card" onclick="openCase('sunstone')">
-                <img src="https://via.placeholder.com/80/45B7D1/fff?text=S" alt="Sunstone" class="case-image">
-                <div class="case-name">Astral Sunstone</div>
-                <div class="case-price">15.00 ⭐</div>
-            </div>
-            <div class="case-card" onclick="openCase('lantern')">
-                <img src="https://via.placeholder.com/80/96CEB4/fff?text=L" alt="Lantern" class="case-image">
-                <div class="case-name">Jade Lantern</div>
-                <div class="case-price">50.00 ⭐</div>
-            </div>
         </div>
     </div>
 
@@ -424,56 +436,142 @@
         </div>
     </div>
 
+    <!-- Модальное окно выигрыша -->
+    <div class="modal" id="winModal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('winModal')">×</span>
+            <h2>🎉 ПОЗДРАВЛЯЕМ!</h2>
+            <div class="won-item">
+                <img src="" alt="Выигрыш" id="wonItemImage">
+                <h3 id="wonItemName"></h3>
+                <p id="wonItemPrice"></p>
+            </div>
+            <button class="open-button" onclick="closeModal('winModal')">OK</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно покупки звёзд -->
+    <div class="modal" id="buyModal">
+        <div class="buy-modal-content">
+            <span class="modal-close" onclick="closeModal('buyModal')">×</span>
+            <h2>💎 Купить звёзды</h2>
+            <p>Выберите пакет звёзд для пополнения баланса</p>
+            
+            <div class="stars-packages">
+                <div class="stars-package" onclick="buyStars(10)">
+                    <div class="stars-amount">10 ⭐</div>
+                    <div class="stars-price">$1.00</div>
+                </div>
+                <div class="stars-package" onclick="buyStars(50)">
+                    <div class="stars-amount">50 ⭐</div>
+                    <div class="stars-price">$4.50</div>
+                </div>
+                <div class="stars-package" onclick="buyStars(100)">
+                    <div class="stars-amount">100 ⭐</div>
+                    <div class="stars-price">$8.00</div>
+                </div>
+                <div class="stars-package" onclick="buyStars(500)">
+                    <div class="stars-amount">500 ⭐</div>
+                    <div class="stars-price">$35.00</div>
+                </div>
+            </div>
+            
+            <button class="open-button" onclick="closeModal('buyModal')">Назад</button>
+        </div>
+    </div>
+
     <script>
-        let currentBalance = 0.234;
+        let currentBalance = 0;
 
         function updateBalance() {
             document.getElementById('balanceAmount').textContent = currentBalance.toFixed(3);
         }
 
-        function openCase(caseType) {
-            const casePrices = {
-                'jade': 2.74,
-                'astral': 0.27,
-                'viking': 3.00,
-                'heroic': 6.00,
-                'sunstone': 15.00,
-                'lantern': 50.00
-            };
-
-            const price = casePrices[caseType];
-            
+        function openCase(caseType, price) {
             if (currentBalance >= price) {
                 currentBalance -= price;
                 updateBalance();
                 
-                // Здесь будет отправка данных в бота
+                const items = {
+                    'jade': [
+                        {name: 'Genie Lamp', price: 49.92, image: 'https://via.placeholder.com/80/FF6B6B/fff?text=GL'},
+                        {name: 'Love Potion', price: 14.30, image: 'https://via.placeholder.com/80/4ECDC4/fff?text=LP'},
+                        {name: 'Tama Gadget', price: 2.86, image: 'https://via.placeholder.com/80/45B7D1/fff?text=TG'},
+                        {name: 'Jade Lantern', price: 3.00, image: 'https://via.placeholder.com/80/96CEB4/fff?text=JL'},
+                        {name: 'Mouthwash', price: 6.00, image: 'https://via.placeholder.com/80/FECA57/fff?text=MW'},
+                        {name: 'Twilight', price: 15.00, image: 'https://via.placeholder.com/80/FF9FF3/fff?text=TW'}
+                    ],
+                    'astral': [
+                        {name: 'Lo! Pop Andromeda', price: 2.74, image: 'https://via.placeholder.com/80/FF6B6B/fff?text=LP'},
+                        {name: 'Lunar Snake Aurium', price: 2.28, image: 'https://via.placeholder.com/80/4ECDC4/fff?text=LS'},
+                        {name: 'B-Day Candle Festive', price: 1.30, image: 'https://via.placeholder.com/80/45B7D1/fff?text=BD'}
+                    ]
+                };
+
+                const wonItem = items[caseType][Math.floor(Math.random() * items[caseType].length)];
+                
+                document.getElementById('wonItemImage').src = wonItem.image;
+                document.getElementById('wonItemName').textContent = wonItem.name;
+                document.getElementById('wonItemPrice').textContent = `Цена: ${wonItem.price} ⭐`;
+                document.getElementById('winModal').style.display = 'flex';
+                
                 if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
                     Telegram.WebApp.sendData(JSON.stringify({
                         type: 'openCase',
                         caseType: caseType,
-                        price: price
+                        price: price,
+                        wonItem: wonItem.name,
+                        itemValue: wonItem.price
                     }));
                 }
                 
-                alert(`🎉 Кейс открыт! Списано: ${price} ⭐`);
             } else {
-                alert('❌ Недостаточно звёзд! Пополните баланс.');
+                alert('❌ Недостаточно звёзд! Баланс: ' + currentBalance.toFixed(3) + ' ⭐');
             }
         }
 
-        document.getElementById('addBalanceBtn').addEventListener('click', function() {
+        function openBuyModal() {
+            document.getElementById('buyModal').style.display = 'flex';
+        }
+
+        function buyStars(amount) {
             if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-                Telegram.WebApp.showAlert('Для пополнения баланса используйте бота');
+                Telegram.WebApp.sendData(JSON.stringify({
+                    type: 'buyStars',
+                    amount: amount
+                }));
+                closeModal('buyModal');
             } else {
-                alert('Для пополнения баланса используйте Telegram бота');
+                alert('Покупка звёзд доступна только через Telegram бота');
             }
-        });
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
 
         // Инициализация
         if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
             Telegram.WebApp.ready();
             Telegram.WebApp.expand();
+            
+            Telegram.WebApp.sendData(JSON.stringify({
+                type: 'getBalance'
+            }));
+        }
+
+        if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
+            Telegram.WebApp.onEvent('message', (message) => {
+                try {
+                    const data = JSON.parse(message);
+                    if (data.balance !== undefined) {
+                        currentBalance = data.balance;
+                        updateBalance();
+                    }
+                } catch (e) {
+                    console.error('Error parsing message:', e);
+                }
+            });
         }
 
         updateBalance();
