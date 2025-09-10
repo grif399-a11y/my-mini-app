@@ -53,7 +53,7 @@ const cases = [
     },
 ];
 
-// Текущий баланс пользователя
+// Текущий баланс и инвентарь
 let currentBalance = 0;
 let userInventory = [];
 
@@ -65,39 +65,18 @@ document.addEventListener('DOMContentLoaded', () => {
     loadUserData();
 });
 
-// Инициализация Telegram WebApp
 function initializeTelegramWebApp() {
     if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
         Telegram.WebApp.ready();
         Telegram.WebApp.expand();
         
-        // Получаем данные пользователя
-        const user = Telegram.WebApp.initDataUnsafe.user;
-        if (user) {
-            document.querySelector('h3').textContent = `@${user.username}`;
-        }
+        // Запрашиваем данные у бота
+        requestUserData();
     }
 }
 
-// Загрузка данных пользователя
-function loadUserData() {
-    // В реальном приложении здесь будет запрос к боту
-    // Пока используем заглушку
-    updateBalanceDisplay();
-}
-
-// Настройка обработчиков событий
 function setupEventListeners() {
-    const caseGrid = document.getElementById('caseGrid');
-    const balanceAmount = document.getElementById('balanceAmount');
-    const caseModal = document.getElementById('caseModal');
-    const modalCaseName = document.getElementById('modalCaseName');
-    const modalCaseDescription = document.getElementById('modalCaseDescription');
-    const modalOpenButton = document.getElementById('modalOpenButton');
-    const modalCaseItems = document.getElementById('modalCaseItems');
-    const modalCloseButtons = document.querySelectorAll('.modal-close-button');
     const navItems = document.querySelectorAll('.nav-item');
-    const pages = document.querySelectorAll('.main-content');
     const addBalanceBtn = document.getElementById('addBalanceBtn');
     
     // Обработчик для кнопок меню
@@ -107,27 +86,12 @@ function setupEventListeners() {
         });
     });
 
-    // Закрытие модального окна
-    modalCloseButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            caseModal.style.display = 'none';
-        });
-    });
-
     // Кнопка пополнения баланса
     addBalanceBtn.addEventListener('click', () => {
         requestBalanceTopUp();
     });
-
-    // Клик по области вокруг модального окна
-    window.addEventListener('click', (e) => {
-        if (e.target === caseModal) {
-            caseModal.style.display = 'none';
-        }
-    });
 }
 
-// Переключение страниц
 function switchPage(pageId) {
     const pages = document.querySelectorAll('.main-content');
     const navItems = document.querySelectorAll('.nav-item');
@@ -145,9 +109,13 @@ function switchPage(pageId) {
             item.classList.add('active');
         }
     });
+    
+    // При переходе на профиль обновляем инвентарь
+    if (pageId === 'profilePage') {
+        updateInventoryDisplay();
+    }
 }
 
-// Генерация кейсов
 function generateCaseBoxes() {
     const caseGrid = document.getElementById('caseGrid');
     caseGrid.innerHTML = '';
@@ -157,7 +125,7 @@ function generateCaseBoxes() {
         caseBox.className = 'case-box';
         caseBox.innerHTML = `
             <div class="case-price">${caseData.price} <i class="fas fa-gem"></i></div>
-            <img src="${caseData.image}" alt="${caseData.name}" onerror="this.src='https://via.placeholder.com/150/333/fff?text=Кейс'">
+            <img src="${caseData.image}" alt="${caseData.name}">
             <h3>${caseData.name}</h3>
         `;
         caseBox.addEventListener('click', () => openCaseModal(caseData));
@@ -165,7 +133,6 @@ function generateCaseBoxes() {
     });
 }
 
-// Открытие модального окна кейса
 function openCaseModal(caseData) {
     const caseModal = document.getElementById('caseModal');
     const modalCaseName = document.getElementById('modalCaseName');
@@ -184,7 +151,7 @@ function openCaseModal(caseData) {
         const itemElement = document.createElement('div');
         itemElement.className = 'modal-item';
         itemElement.innerHTML = `
-            <img src="${item.gift.image}" alt="${item.gift.name}" onerror="this.src='https://via.placeholder.com/60/333/fff?text=Приз'">
+            <img src="${item.gift.image}" alt="${item.gift.name}">
             <p>${item.gift.name}</p>
             <p>${item.chance}%</p>
         `;
@@ -194,13 +161,11 @@ function openCaseModal(caseData) {
     caseModal.style.display = 'flex';
 }
 
-// Открытие кейса
 function openCase(caseData) {
     if (currentBalance >= caseData.price) {
-        // Отправляем данные в бота
+        // Отправляем запрос на открытие кейса боту
         sendDataToBot({
             type: 'openCase',
-            caseId: caseData.id,
             price: caseData.price
         });
         
@@ -211,7 +176,6 @@ function openCase(caseData) {
     }
 }
 
-// Продажа подарка
 function sellGift(giftValue) {
     sendDataToBot({
         type: 'sellGift',
@@ -219,52 +183,23 @@ function sellGift(giftValue) {
     });
 }
 
-// Запрос пополнения баланса
 function requestBalanceTopUp() {
-    if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
-        // Открываем меню пополнения в боте
-        Telegram.WebApp.openTelegramLink('https://t.me/your_bot_username?start=topup');
-    } else {
-        showAlert('Откройте приложение через Telegram бота для пополнения баланса');
-    }
+    // В веб-приложении можно показать инструкцию
+    showAlert('Для пополнения баланса вернитесь в бота и используйте команду /start');
 }
 
-// Отправка данных в бота
 function sendDataToBot(data) {
     if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
         Telegram.WebApp.sendData(JSON.stringify(data));
-    } else {
-        // Режим разработки - эмулируем ответ
-        simulateBotResponse(data);
     }
 }
 
-// Эмуляция ответа бота (для разработки)
-function simulateBotResponse(data) {
-    if (data.type === 'openCase') {
-        const caseData = cases.find(c => c.id === data.caseId);
-        if (caseData) {
-            // Случайный выбор приза
-            const randomItem = caseData.items[Math.floor(Math.random() * caseData.items.length)];
-            const wonGift = randomItem.gift;
-            
-            // Обновляем баланс
-            currentBalance -= caseData.price;
-            userInventory.push(wonGift);
-            
-            updateBalanceDisplay();
-            updateInventoryDisplay();
-            
-            showAlert(`🎉 Вы выиграли: ${wonGift.name} (${wonGift.value} ⭐)`);
-        }
-    } else if (data.type === 'sellGift') {
-        currentBalance += data.value;
-        updateBalanceDisplay();
-        showAlert(`✅ Получено ${data.value} ⭐`);
-    }
+function requestUserData() {
+    sendDataToBot({
+        type: 'getBalance'
+    });
 }
 
-// Обновление отображения баланса
 function updateBalanceDisplay() {
     const balanceAmount = document.getElementById('balanceAmount');
     const profileBalance = document.getElementById('profileBalance');
@@ -273,7 +208,6 @@ function updateBalanceDisplay() {
     if (profileBalance) profileBalance.textContent = currentBalance;
 }
 
-// Обновление отображения инвентаря
 function updateInventoryDisplay() {
     const inventoryElement = document.getElementById('inventory');
     if (!inventoryElement) return;
@@ -287,7 +221,7 @@ function updateInventoryDisplay() {
     userInventory.forEach((item, index) => {
         inventoryHTML += `
             <div class="inventory-item">
-                <img src="${item.image}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/60/333/fff?text=Приз'">
+                <img src="${getGiftImage(item.name)}" alt="${item.name}">
                 <p>${item.name}</p>
                 <p>${item.value} ⭐</p>
                 <button onclick="sellGift(${item.value})">Продать</button>
@@ -299,7 +233,15 @@ function updateInventoryDisplay() {
     inventoryElement.innerHTML = inventoryHTML;
 }
 
-// Показать уведомление
+function getGiftImage(giftName) {
+    for (const key in allGifts) {
+        if (allGifts[key].name === giftName) {
+            return allGifts[key].image;
+        }
+    }
+    return 'https://via.placeholder.com/60/333/fff?text=Приз';
+}
+
 function showAlert(message) {
     if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
         Telegram.WebApp.showAlert(message);
@@ -308,31 +250,21 @@ function showAlert(message) {
     }
 }
 
-// Запрос баланса у бота
-function requestBalance() {
-    sendDataToBot({
-        type: 'getBalance'
-    });
-}
-
-// Обработка входящих сообщений от бота
+// Обработка сообщений от бота
 if (typeof Telegram !== 'undefined' && Telegram.WebApp) {
     Telegram.WebApp.onEvent('message', (message) => {
         try {
             const data = JSON.parse(message);
-            if (data.balance !== undefined) {
+            
+            if (data.type === 'balanceData') {
                 currentBalance = data.balance;
+                userInventory = data.inventory || [];
                 updateBalanceDisplay();
-            }
-            if (data.inventory) {
-                userInventory = data.inventory;
                 updateInventoryDisplay();
             }
+            
         } catch (e) {
             console.error('Error parsing message:', e);
         }
     });
 }
-
-// Автоматически запрашиваем баланс при загрузке
-setTimeout(requestBalance, 1000);
