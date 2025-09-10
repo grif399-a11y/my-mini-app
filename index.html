@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NFT Кейсы</title>
+    <title>Crypto Cases</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
@@ -15,17 +15,10 @@
             --bg-light: #3a3a3a;
             --text-color: #f0f0f0;
             --primary-color: #6a0dad;
-            --secondary-color: #3f51b5;
             --accent-color: #FFD700;
+            --secondary-accent: #007bff;
             --border-radius: 10px;
-            --item-bg: #2b2b2b;
-            --item-border: #444;
-            --case-bg-color-1: #388e3c;
-            --case-bg-color-2: #d32f2f;
-            --case-bg-color-3: #fbc02d;
-            --case-bg-color-4: #0288d1;
         }
-
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -36,43 +29,38 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-
+        /* Layout Sections */
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--bg-dark);
+        }
         .header {
-            background-color: var(--bg-medium);
-            padding: 10px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 10px 15px;
+            background-color: var(--bg-medium);
             border-bottom: 1px solid var(--bg-light);
+            z-index: 10;
         }
-        .header-left {
+        .header-left, .header-right {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        .header-icon {
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
-            background-color: var(--item-bg);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 18px;
-            border: 1px solid var(--item-border);
-        }
         .header-balance {
-            background-color: var(--item-bg);
-            padding: 5px 10px;
-            border-radius: var(--border-radius);
+            background-color: var(--bg-light);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            font-weight: 600;
-            border: 1px solid var(--item-border);
+            gap: 5px;
         }
         .header-balance span {
-            margin-right: 5px;
-            color: #4dc2ff;
+            color: var(--accent-color);
         }
         .header-balance .add-btn {
             background-color: #4CAF50;
@@ -81,70 +69,98 @@
             border-radius: 50%;
             width: 20px;
             height: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 18px;
-            line-height: 1;
-            cursor: pointer;
-            margin-left: 5px;
         }
-        .header-right {
+        .header-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: var(--bg-light);
             display: flex;
+            justify-content: center;
             align-items: center;
-            gap: 10px;
+            font-size: 20px;
+            cursor: pointer;
         }
-        .header-right .header-icon {
-            background-color: #4a4a4a;
-        }
-
         .main-content {
-            flex-grow: 1;
+            flex: 1;
             padding: 15px;
-            background-color: var(--bg-dark);
+            display: none; /* Скрываем по умолчанию, показываем через JS */
+            flex-direction: column;
+        }
+        .main-content.active {
+            display: flex;
+        }
+        .footer-nav {
+            background-color: var(--bg-medium);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid var(--bg-light);
+            position: sticky;
+            bottom: 0;
+            width: 100%;
+            z-index: 10;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #777;
+            font-size: 12px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .nav-item i {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+        .nav-item.active {
+            color: var(--secondary-accent);
+        }
+        /* Home Page */
+        .page-home .section-title {
+            color: var(--text-color);
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .page-home .case-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 15px;
         }
-        @media (min-width: 768px) {
-            .main-content {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            }
-        }
-
-
-        .case-box {
-            background-color: var(--item-bg);
+        .page-home .case-box {
+            background-color: var(--bg-medium);
             border-radius: var(--border-radius);
             padding: 15px;
             text-align: center;
-            border: 1px solid var(--item-border);
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             position: relative;
-            overflow: hidden;
-            min-height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
         }
-        .case-box:hover {
+        .page-home .case-box:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .case-box img {
+        .page-home .case-box img {
             max-width: 100%;
             height: 90px;
             object-fit: contain;
             margin-bottom: 10px;
         }
-        .case-box h3 {
+        .page-home .case-box h3 {
             font-size: 16px;
             margin: 5px 0;
             color: var(--text-color);
         }
-        .case-price {
-            background-color: var(--primary-color);
+        .page-home .case-price {
             color: white;
             padding: 5px 10px;
             border-radius: 5px;
@@ -152,48 +168,38 @@
             display: inline-flex;
             align-items: center;
             margin-top: auto;
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #2b2b2b;
+            border-radius: 50%;
+            font-size: 12px;
+            padding: 8px;
+            border: 1px solid var(--accent-color);
         }
-        .case-price span {
-            margin-left: 5px;
+        .page-home .case-price span {
+            margin-left: 2px;
             color: var(--accent-color);
         }
-
-        .case-box[data-case-id="1"] { background-color: var(--case-bg-color-1); }
-        .case-box[data-case-id="2"] { background-color: var(--case-bg-color-2); }
-        .case-box[data-case-id="3"] { background-color: var(--case-bg-color-3); }
-        .case-box[data-case-id="4"] { background-color: var(--case-bg-color-4); }
-
-
-        .footer-nav {
+        /* Profile Page */
+        .page-profile .profile-card {
             background-color: var(--bg-medium);
-            padding: 10px 0;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+        .page-profile .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--bg-dark);
+            margin: 0 auto 15px;
             display: flex;
-            justify-content: space-around;
             align-items: center;
-            border-top: 1px solid var(--bg-light);
-            position: sticky;
-            bottom: 0;
-            width: 100%;
+            justify-content: center;
+            font-size: 60px;
         }
-        .footer-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: var(--text-color);
-            font-size: 12px;
-            cursor: pointer;
-        }
-        .footer-nav-item i {
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-        .fa-cube, .fa-users, .fa-trophy, .fa-list, .fa-history {
-            color: var(--text-color);
-        }
-        .fa-home {
-            color: var(--primary-color);
-        }
-
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -209,7 +215,6 @@
         }
         .modal-content {
             background-color: var(--bg-dark);
-            margin: auto;
             padding: 20px;
             border: 1px solid var(--primary-color);
             border-radius: var(--border-radius);
@@ -222,13 +227,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--item-border);
+            border-bottom: 1px solid var(--bg-light);
             padding-bottom: 10px;
             margin-bottom: 20px;
-        }
-        .modal-header h2 {
-            margin: 0;
-            color: var(--accent-color);
         }
         .modal-close-button {
             color: #aaa;
@@ -236,41 +237,12 @@
             font-weight: bold;
             cursor: pointer;
         }
-        .modal-image {
-            max-width: 100%;
-            height: 150px;
-            object-fit: contain;
-            margin-bottom: 20px;
-        }
-        .modal-info {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .modal-info p {
-            font-size: 16px;
-            margin: 5px 0;
-        }
-        .modal-open-button {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-        .modal-open-button:hover {
-            background-color: #5a0997;
-        }
         .modal-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 10px;
             margin-top: 20px;
-            border-top: 1px solid var(--item-border);
+            border-top: 1px solid var(--bg-light);
             padding-top: 15px;
         }
         .modal-item {
@@ -279,101 +251,81 @@
             border-radius: 5px;
             text-align: center;
             font-size: 12px;
-            border: 1px solid var(--item-border);
         }
         .modal-item img {
             max-width: 60px;
             height: auto;
             border-radius: 3px;
         }
-        .modal-item p {
-            margin: 5px 0 0;
-        }
-        
-        .purchase-modal-content {
-            background-color: var(--bg-dark);
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #4CAF50;
-            border-radius: var(--border-radius);
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            position: relative;
-            text-align: center;
-        }
-        .purchase-options {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-        .purchase-option {
-            background-color: var(--bg-medium);
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid var(--item-border);
-        }
-        .purchase-option p {
-            margin: 0;
-            font-size: 16px;
-        }
-        .purchase-button {
-            background-color: #007bff;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="header">
-        <div class="header-left">
-            <div class="header-icon">🐸</div>
-            <div class="header-icon">⌚</div>
-            <div class="header-icon">🍭</div>
-            <div class="header-icon">🎉</div>
-            <div class="header-icon">🌹</div>
-            <div class="header-icon">🐉</div>
-        </div>
-        <div class="header-balance">
-            Баланс: <span id="balanceAmount"></span> ⭐
-            <button class="add-btn" id="addBalanceBtn">+</button>
-        </div>
-        <div class="header-right">
-            <div class="header-icon">T</div>
-        </div>
-    </div>
 
-    <div class="main-content" id="caseGrid"></div>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <div class="header-icon"><i class="fas fa-search"></i></div>
+                <div class="header-icon"><i class="fas fa-wallet"></i></div>
+            </div>
+            <div class="header-balance">
+                <span id="balanceAmount">0.00</span>
+                <i class="fas fa-gem" style="color: #4dc2ff;"></i>
+                <button class="add-btn" id="addBalanceBtn">+</button>
+            </div>
+            <div class="header-right">
+                <div class="header-icon"><i class="fas fa-cog"></i></div>
+            </div>
+        </div>
 
-    <div class="footer-nav">
-        <div class="footer-nav-item">
-            <i class="fas fa-cube"></i>
-            <span>Битва кейсов</span>
+        <div id="pages" class="content-pages">
+            <div id="homePage" class="main-content active page-home">
+                <div class="case-grid" id="caseGrid">
+                    </div>
+            </div>
+
+            <div id="profilePage" class="main-content page-profile">
+                <div class="profile-card">
+                    <div class="profile-img">T</div>
+                    <h3>@tegenik</h3>
+                    <p>Баланс: <span id="profileBalance">0.00</span> <i class="fas fa-gem" style="color: #4dc2ff;"></i></p>
+                    <button class="add-btn">Пополнить +</button>
+                    <hr>
+                    <h4>Ваш инвентарь</h4>
+                    <button>Продать всё</button>
+                    <div id="inventory">
+                        <p>Вы ещё не открывали кейсы</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="battlesPage" class="main-content">
+                <h2>Битвы</h2>
+                <p>Здесь будет страница с битвами кейсов.</p>
+            </div>
+            <div id="upgraderPage" class="main-content">
+                <h2>Модернизатор</h2>
+                <p>Здесь будет страница для улучшения предметов.</p>
+            </div>
         </div>
-        <div class="footer-nav-item">
-            <i class="fas fa-users"></i>
-            <span>Пригласить</span>
-        </div>
-        <div class="footer-nav-item">
-            <i class="fas fa-home"></i>
-            <span>Главная</span>
-        </div>
-        <div class="footer-nav-item">
-            <i class="fas fa-trophy"></i>
-            <span>Рейтинг</span>
-        </div>
-        <div class="footer-nav-item">
-            <i class="fas fa-list"></i>
-            <span>Меню</span>
+
+        <div class="footer-nav">
+            <div class="nav-item active" data-page="homePage">
+                <i class="fas fa-home"></i>
+                <span>Главная</span>
+            </div>
+            <div class="nav-item" data-page="profilePage">
+                <i class="fas fa-user-circle"></i>
+                <span>Профиль</span>
+            </div>
+            <div class="nav-item" data-page="battlesPage">
+                <i class="fas fa-cube"></i>
+                <span>Битвы</span>
+            </div>
+            <div class="nav-item" data-page="upgraderPage">
+                <i class="fas fa-magic"></i>
+                <span>Модернизатор</span>
+            </div>
         </div>
     </div>
 
@@ -383,32 +335,11 @@
                 <h2 id="modalCaseName">Название Кейса</h2>
                 <span class="modal-close-button">&times;</span>
             </div>
-            <img id="modalCaseImage" src="" alt="Изображение кейса" class="modal-image">
-            <div class="modal-info">
-                <p id="modalCaseDescription">Описание кейса</p>
-                <p>Цена: <span id="modalCasePrice"></span> ⭐</p>
+            <div id="modal-details">
+                <p id="modalCaseDescription"></p>
+                <div id="modal-items-preview" class="modal-items-grid"></div>
             </div>
-            <button id="modalOpenButton" class="modal-open-button">Открыть кейс</button>
-            <div id="modalResult" style="margin-top: 20px; text-align: center; font-weight: bold;"></div>
-            <h3 style="margin-top: 20px; text-align: left;">Содержимое кейса:</h3>
-            <div id="modalCaseItems" class="modal-items-grid"></div>
-        </div>
-    </div>
-
-    <div id="purchaseModal" class="modal">
-        <div class="purchase-modal-content">
-            <span class="modal-close-button">&times;</span>
-            <h2>Купить укусы</h2>
-            <div class="purchase-options">
-                <div class="purchase-option">
-                    <p>1000 укусов</p>
-                    <button class="purchase-button" data-amount="1000">Купить за 10 ⭐</button>
-                </div>
-                <div class="purchase-option">
-                    <p>5000 укусов</p>
-                    <button class="purchase-button" data-amount="5000">Купить за 50 ⭐</button>
-                </div>
-            </div>
+            <button id="modalOpenButton">Открыть кейс</button>
         </div>
     </div>
 
