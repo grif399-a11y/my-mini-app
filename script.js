@@ -68,11 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.main-content');
     const addBalanceBtn = document.getElementById('addBalanceBtn');
     
-    // Временный баланс, пока не подключен бот
     let currentBalance = 1000;
     balanceAmount.textContent = currentBalance;
 
-    // Функция для переключения страниц
     function switchPage(pageId) {
         pages.forEach(page => {
             page.classList.remove('active');
@@ -88,16 +86,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Обработчик для кнопок меню
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             switchPage(item.dataset.page);
         });
     });
 
-    // Функция для генерации боксов с кейсами
     function generateCaseBoxes() {
-        caseGrid.innerHTML = ''; // Очищаем сетку
+        caseGrid.innerHTML = '';
         cases.forEach(caseData => {
             const caseBox = document.createElement('div');
             caseBox.className = 'case-box';
@@ -111,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Открытие модального окна предпросмотра кейса
     function openCaseModal(caseData) {
         modalCaseName.textContent = caseData.name;
         modalCaseDescription.textContent = caseData.description;
@@ -132,24 +127,20 @@ document.addEventListener('DOMContentLoaded', () => {
         caseModal.style.display = 'flex';
     }
 
-    // Закрытие модального окна
     modalCloseButtons.forEach(button => {
         button.addEventListener('click', () => {
             caseModal.style.display = 'none';
         });
     });
 
-    // Временная логика для кнопки "Открыть"
     modalOpenButton.addEventListener('click', () => {
         alert('Эта функция будет подключена к боту!');
         caseModal.style.display = 'none';
     });
 
-    // Временная логика для кнопки "Пополнить"
     addBalanceBtn.addEventListener('click', () => {
         alert('Функция пополнения будет реализована на следующем шаге!');
     });
 
-    // Инициализация - генерируем боксы при загрузке страницы
     generateCaseBoxes();
 });
