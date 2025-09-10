@@ -68,9 +68,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const pages = document.querySelectorAll('.main-content');
     const addBalanceBtn = document.getElementById('addBalanceBtn');
     
+    // Временный баланс, пока не подключен бот
     let currentBalance = 1000;
     balanceAmount.textContent = currentBalance;
 
+    // Функция для переключения страниц
     function switchPage(pageId) {
         pages.forEach(page => {
             page.classList.remove('active');
@@ -86,12 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Обработчик для кнопок меню
     navItems.forEach(item => {
         item.addEventListener('click', () => {
             switchPage(item.dataset.page);
         });
     });
 
+    // Функция для генерации боксов с кейсами
     function generateCaseBoxes() {
         caseGrid.innerHTML = '';
         cases.forEach(caseData => {
@@ -107,11 +111,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Открытие модального окна предпросмотра кейса
     function openCaseModal(caseData) {
         modalCaseName.textContent = caseData.name;
         modalCaseDescription.textContent = caseData.description;
         modalOpenButton.textContent = `Открыть кейс за ${caseData.price} ⭐`;
 
+        // Отображаем содержимое кейса в модальном окне
         modalCaseItems.innerHTML = '';
         caseData.items.forEach(item => {
             const itemElement = document.createElement('div');
@@ -127,20 +133,24 @@ document.addEventListener('DOMContentLoaded', () => {
         caseModal.style.display = 'flex';
     }
 
+    // Закрытие модального окна
     modalCloseButtons.forEach(button => {
         button.addEventListener('click', () => {
             caseModal.style.display = 'none';
         });
     });
 
+    // Логика для кнопки "Открыть"
     modalOpenButton.addEventListener('click', () => {
         alert('Эта функция будет подключена к боту!');
         caseModal.style.display = 'none';
     });
 
+    // Логика для кнопки "Пополнить"
     addBalanceBtn.addEventListener('click', () => {
         alert('Функция пополнения будет реализована на следующем шаге!');
     });
 
+    // Инициализация - генерируем боксы при загрузке страницы
     generateCaseBoxes();
 });
